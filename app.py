@@ -16,157 +16,398 @@ from src.predict import CongestionPredictor
 # PAGE CONFIGURATION
 # -----------------------------------------------------------------------------
 st.set_page_config(
-    page_title="Internet Traffic Congestion Prediction",
+    page_title="Internet Traffic Congestion Prediction | ML Analytics Dashboard",
     page_icon="🌐",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # -----------------------------------------------------------------------------
-# CUSTOM CSS (DARK NAVY & BLUE THEME)
+# PREMIUM UNIVERSITY ML DASHBOARD THEME (DARK NAVY / SLATE / CYAN AESTHETIC)
 # -----------------------------------------------------------------------------
 st.markdown("""
 <style>
-    /* Dark Navy & Slate Theme */
-    .stApp {
-        background-color: #0b1120;
-        color: #f1f5f9;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    /* Global Root & Typography */
+    html, body, [class*="css"], .stApp {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        background-color: #070c18 !important;
+        color: #f1f5f9 !important;
     }
-    
+
+    /* Subtle background grid pattern */
+    .stApp {
+        background-image: 
+            radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.08) 0%, transparent 35%),
+            radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 40%),
+            linear-gradient(rgba(15, 23, 42, 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.3) 1px, transparent 1px);
+        background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
     /* Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background-color: #0f172a;
-        border-right: 1px solid #1e293b;
+        background: linear-gradient(180deg, #0b1329 0%, #080d1c 100%) !important;
+        border-right: 1px solid rgba(51, 65, 85, 0.6) !important;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
     }
-    section[data-testid="stSidebar"] .stMarkdown h1, 
-    section[data-testid="stSidebar"] .stMarkdown h2, 
-    section[data-testid="stSidebar"] .stMarkdown h3 {
-        color: #60a5fa;
+    section[data-testid="stSidebar"] div.stMarkdown h3 {
+        color: #38bdf8 !important;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        font-weight: 700;
+        margin-top: 10px;
     }
-    
-    /* Header Container */
-    .header-box {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        border: 1px solid #334155;
-        border-radius: 12px;
-        padding: 24px 28px;
+
+    /* Radio Button Navigation in Sidebar */
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] > div {
+        background: transparent;
+        gap: 6px;
+    }
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+        background-color: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(51, 65, 85, 0.5);
+        border-radius: 8px;
+        padding: 9px 14px;
+        margin-bottom: 4px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+    }
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
+        background-color: rgba(56, 189, 248, 0.12);
+        border-color: #38bdf8;
+        transform: translateX(3px);
+    }
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label[data-checked="true"] {
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(14, 165, 233, 0.2) 100%) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Hero Banner */
+    .hero-container {
+        background: linear-gradient(135deg, #0f1c3f 0%, #0a1329 60%, #060b17 100%);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 16px;
+        padding: 30px 36px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
     }
-    .header-title {
-        font-size: 28px;
+    .hero-container::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, #2563eb, #38bdf8, #10b981);
+    }
+    .hero-badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 9999px;
+        padding: 4px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #7dd3fc;
+        text-transform: uppercase;
+    }
+    .hero-title {
+        font-size: 32px;
         font-weight: 800;
-        color: #38bdf8;
-        margin: 0 0 6px 0;
-        letter-spacing: -0.5px;
+        color: #ffffff;
+        margin: 0 0 8px 0;
+        letter-spacing: -0.7px;
+        line-height: 1.2;
     }
-    .header-subtitle {
+    .hero-subtitle {
         font-size: 15px;
         color: #94a3b8;
         margin: 0;
         font-weight: 400;
+        line-height: 1.5;
+        max-width: 900px;
     }
-    
+
     /* Metric Cards */
-    .metric-card {
-        background-color: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 10px;
-        padding: 16px 20px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        transition: transform 0.15s ease, border-color 0.15s ease;
+    .metric-grid-card {
+        background: linear-gradient(135deg, rgba(20, 32, 60, 0.7) 0%, rgba(11, 20, 42, 0.8) 100%);
+        border: 1px solid rgba(51, 65, 85, 0.6);
+        border-radius: 14px;
+        padding: 20px 22px;
+        box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.35);
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
     }
-    .metric-card:hover {
+    .metric-grid-card:hover {
         border-color: #38bdf8;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.2);
     }
-    .metric-label {
-        font-size: 13px;
-        font-weight: 600;
+    .metric-icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+    .metric-top-label {
+        font-size: 11px;
+        font-weight: 700;
         text-transform: uppercase;
         color: #94a3b8;
-        letter-spacing: 0.5px;
-        margin-bottom: 6px;
+        letter-spacing: 0.8px;
+        margin-bottom: 4px;
     }
-    .metric-value {
-        font-size: 26px;
+    .metric-main-value {
+        font-size: 28px;
         font-weight: 800;
-        color: #f8fafc;
-        margin-bottom: 2px;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+        margin-bottom: 4px;
+        font-family: 'JetBrains Mono', monospace;
     }
-    .metric-desc {
+    .metric-sub-desc {
         font-size: 12px;
         color: #64748b;
+        font-weight: 500;
     }
-    
-    /* Result Cards */
-    .result-card-low {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1.5px solid #10b981;
+
+    /* Section Cards */
+    .glass-card {
+        background: linear-gradient(135deg, rgba(17, 28, 54, 0.6) 0%, rgba(10, 18, 38, 0.7) 100%);
+        border: 1px solid rgba(51, 65, 85, 0.6);
+        border-radius: 14px;
+        padding: 24px 26px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    .glass-card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-top: 0;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* Taxonomy Cards */
+    .tax-card {
         border-radius: 12px;
-        padding: 22px;
-        margin-top: 16px;
+        padding: 18px 20px;
+        margin-bottom: 14px;
+        transition: transform 0.2s ease;
     }
-    .result-card-medium {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1.5px solid #f59e0b;
-        border-radius: 12px;
-        padding: 22px;
-        margin-top: 16px;
+    .tax-card:hover {
+        transform: translateX(4px);
     }
-    .result-card-high {
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
-        border: 1.5px solid #ef4444;
-        border-radius: 12px;
-        padding: 22px;
-        margin-top: 16px;
+    .tax-card-low {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.25) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        border-left: 5px solid #10b981;
     }
-    
+    .tax-card-med {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(120, 53, 15, 0.25) 100%);
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        border-left: 5px solid #f59e0b;
+    }
+    .tax-card-high {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(127, 29, 29, 0.25) 100%);
+        border: 1px solid rgba(239, 68, 68, 0.4);
+        border-left: 5px solid #ef4444;
+    }
+
+    /* Prediction Result Showcase Cards */
+    .hero-pred-result {
+        border-radius: 16px;
+        padding: 28px 32px;
+        margin-top: 20px;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+    .pred-result-low {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+        border: 2px solid #10b981;
+        box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    }
+    .pred-result-medium {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+        border: 2px solid #f59e0b;
+        box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
+    }
+    .pred-result-high {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+        border: 2px solid #ef4444;
+        box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+    }
+
+    .pred-status-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+    .pred-tier-title {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin: 6px 0 10px 0;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
     /* Badges */
     .badge {
         display: inline-block;
-        padding: 4px 10px;
+        padding: 5px 12px;
         border-radius: 9999px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
     }
-    .badge-blue { background-color: #0369a1; color: #e0f2fe; }
-    .badge-green { background-color: #065f46; color: #d1fae5; }
-    .badge-amber { background-color: #78350f; color: #fef3c7; }
-    .badge-red { background-color: #7f1d1d; color: #fee2e2; }
-    
-    /* Tab Styling */
+    .badge-green { background-color: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; }
+    .badge-amber { background-color: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; color: #fde68a; }
+    .badge-red { background-color: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; }
+    .badge-blue { background-color: rgba(37, 99, 235, 0.2); border: 1px solid #38bdf8; color: #7dd3fc; }
+
+    /* Pulsing Status Dot */
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #10b981;
+        display: inline-block;
+        box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
+        animation: pulse 1.8s infinite;
+        margin-right: 6px;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+        70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Pipeline Step Tracker */
+    .pipeline-container {
+        display: flex;
+        justify-content: space-between;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(51, 65, 85, 0.6);
+        border-radius: 12px;
+        padding: 12px 18px;
+        margin-bottom: 22px;
+        gap: 8px;
+    }
+    .pipeline-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #94a3b8;
+    }
+    .step-number {
+        background: #1e293b;
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    /* Streamlit Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        border-bottom: 1px solid #334155;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.8);
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: #1e293b;
-        border-radius: 6px 6px 0 0;
-        color: #94a3b8;
-        border: 1px solid #334155;
-        border-bottom: none;
-        padding: 8px 16px;
-        font-weight: 600;
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border-radius: 8px 8px 0 0 !important;
+        color: #94a3b8 !important;
+        border: 1px solid rgba(51, 65, 85, 0.6) !important;
+        border-bottom: none !important;
+        padding: 9px 18px !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
     }
     .stTabs [aria-selected="true"] {
-        background-color: #2563eb !important;
+        background: linear-gradient(180deg, #1e3a8a 0%, #1e293b 100%) !important;
+        color: #38bdf8 !important;
+        border-color: #38bdf8 !important;
+    }
+
+    /* Streamlit Form Submit & Primary Buttons */
+    .stButton > button, div[data-testid="stFormSubmitButton"] > button {
+        background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%) !important;
         color: #ffffff !important;
-        border-color: #2563eb !important;
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+        border-radius: 10px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.4px !important;
+        padding: 10px 24px !important;
+        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+        transition: all 0.2s ease !important;
+    }
+    .stButton > button:hover, div[data-testid="stFormSubmitButton"] > button:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45) !important;
+        border-color: #38bdf8 !important;
+    }
+
+    /* Expanders */
+    .streamlit-expanderHeader {
+        background-color: rgba(15, 23, 42, 0.7) !important;
+        border: 1px solid rgba(51, 65, 85, 0.6) !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
+        color: #cbd5e1 !important;
     }
     
-    /* Dataframe styling */
+    /* Tables and dataframes */
     .stDataFrame {
-        border: 1px solid #334155;
-        border-radius: 8px;
+        border: 1px solid rgba(51, 65, 85, 0.6);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    /* Math Formula Block */
+    .math-block {
+        background: rgba(11, 19, 38, 0.8);
+        border: 1px solid rgba(56, 189, 248, 0.25);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin: 12px 0;
+        text-align: center;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# CACHED RESOURCE LOADERS
+# CACHED RESOURCE LOADERS (UNTOUCHED BACKEND LOGIC)
 # -----------------------------------------------------------------------------
 @st.cache_resource
 def load_predictor():
@@ -209,7 +450,7 @@ def load_feature_importance():
         return pd.read_csv(fi_path)
     return None
 
-# Load global predictor
+# Load global predictor instance safely
 try:
     predictor = load_predictor()
     model_loaded = True
@@ -222,7 +463,21 @@ except Exception as e:
 # SIDEBAR NAVIGATION
 # -----------------------------------------------------------------------------
 with st.sidebar:
-    st.markdown("### 🌐 Navigation")
+    st.markdown("""
+    <div style="padding: 10px 0 16px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.6); margin-bottom: 18px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="background: linear-gradient(135deg, #2563eb, #38bdf8); width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                🌐
+            </div>
+            <div>
+                <div style="font-weight: 800; font-size: 16px; color: #ffffff; letter-spacing: -0.3px;">NETFLOW AI</div>
+                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;">Traffic Congestion Lab</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### Navigation")
     page = st.radio(
         "Select Dashboard View:",
         [
@@ -232,142 +487,224 @@ with st.sidebar:
             "🔍 Feature Importance",
             "ℹ️ About the Project"
         ],
-        index=0
+        index=0,
+        label_visibility="collapsed"
     )
     
-    st.markdown("---")
-    st.markdown("### ⚙️ System Status")
-    if model_loaded:
-        st.markdown(
-            '<div style="background-color: #064e3b; border: 1px solid #059669; border-radius: 6px; padding: 10px;">'
-            '<span style="color: #34d399; font-weight: 700;">● Model Online</span><br>'
-            '<small style="color: #a7f3d0;">Random Forest (100 Trees)</small><br>'
-            '<small style="color: #a7f3d0;">Test Accuracy: <b>85.39%</b></small>'
-            '</div>',
-            unsafe_allow_html=True
-        )
-    else:
-        st.error("Model Offline")
-        
     st.markdown("<br>", unsafe_allow_html=True)
-    st.caption("College Machine Learning Capstone")
-    st.caption("CIC-IDS2017 Dataset Telemetry")
-    st.caption("Environment: 8 GB RAM Optimized")
+    st.markdown("### System Telemetry")
+    
+    if model_loaded:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <span class="pulse-dot"></span>
+                <span style="color: #6ee7b7; font-weight: 700; font-size: 13px;">MODEL ONLINE</span>
+            </div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Model: <b>Random Forest</b> (100 Trees)</div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Test Accuracy: <b style="color: #38bdf8;">85.39%</b></div>
+            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Macro F1: <b style="color: #a78bfa;">85.53%</b></div>
+            <div style="font-size: 12px; color: #cbd5e1;">• Active Features: <b>58 Telemetry Inputs</b></div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.error(f"● Model Offline: {model_error}")
+        
+    st.markdown("""
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 8px; padding: 12px; font-size: 11px; color: #94a3b8; line-height: 1.6;">
+        <div><b>Project:</b> University ML Capstone</div>
+        <div><b>Dataset:</b> CIC-IDS2017 Benchmark</div>
+        <div><b>Memory Footprint:</b> 8 GB RAM Optimized</div>
+        <div><b>Target Scope:</b> 3-Class TIS Proxy</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # PAGE 1: DASHBOARD OVERVIEW
 # -----------------------------------------------------------------------------
 if page == "📊 Dashboard Overview":
-    # Header Banner
+    # Hero Section
     st.markdown("""
-    <div class="header-box">
-        <h1 class="header-title">Internet Traffic Congestion Prediction</h1>
-        <p class="header-subtitle">Machine Learning-Based Network Traffic Flow Analysis & Queue Strain Estimation</p>
+    <div class="hero-container">
+        <div class="hero-badge-row">
+            <span class="hero-pill">🎓 Academic Machine Learning Capstone</span>
+            <span class="hero-pill">🌐 CIC-IDS2017 Benchmark</span>
+            <span class="hero-pill">🛡️ Zero-Leakage Quarantine Active</span>
+        </div>
+        <h1 class="hero-title">Internet Traffic Congestion Prediction</h1>
+        <p class="hero-subtitle">
+            Machine Learning-Based Network Traffic Flow Analysis & Congestion Estimation using 
+            58 physical packet morphology, buffering, and duty-cycle telemetry indicators.
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Key Metrics Row
+    # Prominent Metric Cards Row (Preserving Exact Historical Metrics)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
-        <div class="metric-card">
-            <div class="metric-label">Selected Model</div>
-            <div class="metric-value" style="color: #38bdf8;">Random Forest</div>
-            <div class="metric-desc">100 Trees Ensemble (Depth 16)</div>
+        <div class="metric-grid-card">
+            <div class="metric-icon-box" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">🤖</div>
+            <div class="metric-top-label">Selected Model</div>
+            <div class="metric-main-value" style="color: #38bdf8;">Random Forest</div>
+            <div class="metric-sub-desc">100 Trees Ensemble (Depth 16)</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown("""
-        <div class="metric-card">
-            <div class="metric-label">Test Set Accuracy</div>
-            <div class="metric-value" style="color: #34d399;">85.39%</div>
-            <div class="metric-desc">Tested on 40,000 Unseen Flows</div>
+        <div class="metric-grid-card">
+            <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🎯</div>
+            <div class="metric-top-label">Test Set Accuracy</div>
+            <div class="metric-main-value" style="color: #34d399;">85.39%</div>
+            <div class="metric-sub-desc">Tested on 40,000 Unseen Flows</div>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown("""
-        <div class="metric-card">
-            <div class="metric-label">Macro F1-Score</div>
-            <div class="metric-value" style="color: #a78bfa;">85.53%</div>
-            <div class="metric-desc">Balanced Across All 3 Tiers</div>
+        <div class="metric-grid-card">
+            <div class="metric-icon-box" style="background: rgba(167, 139, 250, 0.15); color: #a78bfa;">⚖️</div>
+            <div class="metric-top-label">Macro F1-Score</div>
+            <div class="metric-main-value" style="color: #a78bfa;">85.53%</div>
+            <div class="metric-sub-desc">Balanced Across All 3 Tiers</div>
         </div>
         """, unsafe_allow_html=True)
     with col4:
         st.markdown("""
-        <div class="metric-card">
-            <div class="metric-label">Predictor Features</div>
-            <div class="metric-value" style="color: #fbbf24;">58 Features</div>
-            <div class="metric-desc">Zero Target Leakage Quarantine</div>
+        <div class="metric-grid-card">
+            <div class="metric-icon-box" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24;">🛡️</div>
+            <div class="metric-top-label">Predictor Features</div>
+            <div class="metric-main-value" style="color: #fbbf24;">58 Features</div>
+            <div class="metric-sub-desc">Zero Target Leakage Quarantine</div>
         </div>
         """, unsafe_allow_html=True)
         
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # Overview Layout: Two Columns
+    # Two-Column Overview Layout
     c_left, c_right = st.columns([3, 2])
     
     with c_left:
-        st.subheader("🎯 Project Purpose & Methodology")
         st.markdown("""
-        This machine learning platform predicts network traffic congestion states from statistical flow telemetry 
-        derived from the benchmark **CIC-IDS2017** dataset.
-        
-        Because CIC-IDS2017 is an intrusion dataset without native router drop counters, the ground-truth target is formulated as a 
-        mathematically rigorous **Traffic Intensity Score (TIS)** combining normalized logarithmic bandwidth demand and packet processing load:
-        """)
+        <div class="glass-card">
+            <div class="glass-card-title">🎯 Project Purpose & Mathematical Formulation</div>
+            <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                This system estimates network traffic congestion states from statistical flow telemetry 
+                derived from the benchmark <b>CIC-IDS2017</b> dataset.
+            </p>
+            <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">
+                Because CIC-IDS2017 is primarily an intrusion dataset without native hardware queue drop counters, 
+                the ground-truth target is formulated as a mathematically defensible <b>Traffic Intensity Score (TIS)</b> 
+                combining normalized logarithmic bandwidth demand and packet processing load:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="math-block">
+            <span style="font-size: 13px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Traffic Intensity Score (TIS) Formulation</span>
+        </div>
+        """, unsafe_allow_html=True)
         st.latex(r"\text{TIS} = 0.5 \cdot \text{norm}(\log_{10}(1 + \text{Flow Bytes/s})) + 0.5 \cdot \text{norm}(\log_{10}(1 + \text{Flow Packets/s}))")
         
         st.markdown("""
-        #### 🛡️ Strict Target Leakage Quarantine
-        To guarantee scientific integrity and prevent the ML model from merely inverting an arithmetic formula:
-        - **Quarantined (Excluded):** `Flow Bytes/s`, `Flow Packets/s`, `Flow Duration`, and all 14 `Flow/Fwd/Bwd IAT` features.
-        - **Allowed Predictors (58 features):** Packet morphology distributions, TCP control flags, window buffer headroom, and active/idle duty cycles.
-        """)
-        
-    with c_right:
-        st.subheader("🚦 Congestion Level Taxonomy")
-        st.markdown("""
-        <div style="background-color: #1e293b; border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 4px; margin-bottom: 12px;">
-            <b style="color: #34d399; font-size: 15px;">🟢 LOW Congestion (TIS &le; 0.2894)</b><br>
-            <span style="color: #cbd5e1; font-size: 13px;">Quiescent baseline traffic; prolonged idle pauses (median ~5.86s), high client window buffer headroom, and large MTU payloads.</span>
-        </div>
-        
-        <div style="background-color: #1e293b; border-left: 4px solid #f59e0b; padding: 12px 16px; border-radius: 4px; margin-bottom: 12px;">
-            <b style="color: #fbbf24; font-size: 15px;">🟡 MEDIUM Congestion (0.2894 &lt; TIS &le; 0.5255)</b><br>
-            <span style="color: #cbd5e1; font-size: 13px;">Moderate transmission load; intermediate burst activity, emerging queuing strain, transitional buffer occupancy.</span>
-        </div>
-        
-        <div style="background-color: #1e293b; border-left: 4px solid #ef4444; padding: 12px 16px; border-radius: 4px;">
-            <b style="color: #f87171; font-size: 15px;">🔴 HIGH Congestion (TIS &gt; 0.5255)</b><br>
-            <span style="color: #cbd5e1; font-size: 13px;">Severe network saturation; continuous zero-idle transmission, small-packet flood dynamics (median ~16 bytes), reduced TCP window capacity.</span>
+        <div class="glass-card" style="margin-top: 14px;">
+            <div class="glass-card-title" style="color: #38bdf8;">🛡️ Strict Target Leakage Quarantine</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+                To guarantee academic integrity and prevent the ML model from merely inverting an arithmetic formula:
+            </p>
+            <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.7; padding-left: 20px;">
+                <li><b style="color: #f87171;">Quarantined (Excluded):</b> <code>Flow Bytes/s</code>, <code>Flow Packets/s</code>, <code>Flow Duration</code>, and all 14 <code>Flow/Fwd/Bwd IAT</code> features.</li>
+                <li><b style="color: #34d399;">Allowed Predictors (58 features):</b> Packet morphology distributions, TCP control flags, window buffer headroom, and active/idle duty cycles.</li>
+            </ul>
         </div>
         """, unsafe_allow_html=True)
         
-    st.markdown("---")
-    st.subheader("🚀 How to Obtain Predictions")
-    p1, p2 = st.columns(2)
-    with p1:
+    with c_right:
         st.markdown("""
-        **1. Single-Flow Manual / Preset Telemetry**
-        - Navigate to **🔮 Congestion Prediction**.
-        - Load a real-world demonstration preset or input custom telemetry values across the 58 network fields.
-        - Click **Predict Congestion Level** to receive an instant classification and confidence probabilities.
-        """)
-    with p2:
-        st.markdown("""
-        **2. Batch Flow CSV Upload**
-        - Upload any CSV export containing the 58 standard predictor columns.
-        - The system validates missing columns, infers congestion tiers in batches, and lets you download an annotated CSV.
-        """)
+        <div class="glass-card">
+            <div class="glass-card-title">🚦 Congestion Level Taxonomy</div>
+            <div class="tax-card tax-card-low">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <b style="color: #34d399; font-size: 14.5px;">🟢 LOW CONGESTION</b>
+                    <span class="badge badge-green">TIS &le; 0.2894</span>
+                </div>
+                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                    Quiescent baseline traffic; prolonged idle pauses (median ~5.86s), high client window buffer headroom, and large MTU payloads.
+                </div>
+            </div>
+            
+            <div class="tax-card tax-card-med">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <b style="color: #fbbf24; font-size: 14.5px;">🟡 MEDIUM CONGESTION</b>
+                    <span class="badge badge-amber">0.2894 &lt; TIS &le; 0.5255</span>
+                </div>
+                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                    Moderate transmission load; intermediate burst activity, emerging queuing strain, transitional buffer occupancy.
+                </div>
+            </div>
+            
+            <div class="tax-card tax-card-high">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <b style="color: #f87171; font-size: 14.5px;">🔴 HIGH CONGESTION</b>
+                    <span class="badge badge-red">TIS &gt; 0.5255</span>
+                </div>
+                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                    Severe network saturation; continuous zero-idle transmission, small-packet flood dynamics (median ~16 bytes), reduced TCP window capacity.
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    # Quick Action Cards
+    st.markdown("""
+    <div class="glass-card">
+        <div class="glass-card-title">🚀 How to Obtain Predictions</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 10px; padding: 16px;">
+                <b style="color: #38bdf8; font-size: 14px;">⚡ 1. Single-Flow Telemetry Prediction</b>
+                <p style="color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 6px 0 0 0;">
+                    Navigate to <b>🔮 Congestion Prediction</b> &rarr; select Option B. Load one-click authentic test presets or input custom telemetry to receive instantaneous classification and confidence probabilities.
+                </p>
+            </div>
+            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 10px; padding: 16px;">
+                <b style="color: #38bdf8; font-size: 14px;">📁 2. Batch Flow CSV Upload</b>
+                <p style="color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 6px 0 0 0;">
+                    Upload any CSV containing the 58 standard predictor columns (e.g. <code>dataset/processed_test.csv</code>). The system performs memory-safe batch evaluation and exports an annotated CSV.
+                </p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # PAGE 2: CONGESTION PREDICTION
 # -----------------------------------------------------------------------------
 elif page == "🔮 Congestion Prediction":
+    # Hero Section
     st.markdown("""
-    <div class="header-box">
-        <h1 class="header-title">Network Congestion Inference Engine</h1>
-        <p class="header-subtitle">Real-time classification using the production Random Forest Classifier</p>
+    <div class="hero-container">
+        <div class="hero-badge-row">
+            <span class="hero-pill">⚡ Real-Time Inference Engine</span>
+            <span class="hero-pill">🤖 Production Random Forest (100 Trees)</span>
+        </div>
+        <h1 class="hero-title">Network Congestion Inference Engine</h1>
+        <p class="hero-subtitle">
+            Evaluate individual network telemetry flow vectors or process batch CSV datasets 
+            using the trained production Random Forest classifier.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Pipeline Step Tracker Banner
+    st.markdown("""
+    <div class="pipeline-container">
+        <div class="pipeline-step"><span class="step-number">1</span> Ingest Telemetry</div>
+        <div style="color: #475569;">&rarr;</div>
+        <div class="pipeline-step"><span class="step-number">2</span> Quarantine Schema Check</div>
+        <div style="color: #475569;">&rarr;</div>
+        <div class="pipeline-step"><span class="step-number">3</span> Random Forest Voting</div>
+        <div style="color: #475569;">&rarr;</div>
+        <div class="pipeline-step"><span class="step-number">4</span> Probabilistic Classification</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -387,60 +724,58 @@ elif page == "🔮 Congestion Prediction":
     # OPTION A: BATCH CSV UPLOAD
     # -------------------------------------------------------------------------
     if mode == "Option A: Batch CSV Upload":
-        st.subheader("📁 Upload Flow Telemetry CSV")
         st.markdown("""
-        Upload a CSV file containing network flow records. The file must contain the **58 required predictor columns**. 
-        *(Note: Target column `Congestion_Level` and quarantined rate columns must NOT be present).*
-        """)
+        <div class="glass-card">
+            <div class="glass-card-title">📁 Batch Telemetry Ingestion</div>
+            <p style="color: #94a3b8; font-size: 13.5px; line-height: 1.5; margin-bottom: 8px;">
+                Upload a CSV export containing network flow records. The file must supply the <b>58 required predictor columns</b>.
+            </p>
+            <div style="background: rgba(30, 41, 59, 0.4); border-left: 3px solid #38bdf8; padding: 8px 14px; border-radius: 4px; font-size: 12px; color: #cbd5e1;">
+                💡 <b>Quick Demonstration Tip:</b> You can test this feature using the included test file <code>dataset/processed_test.csv</code>!
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
         
-        uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+        uploaded_file = st.file_uploader("Upload Network Flow CSV", type=["csv"], label_visibility="collapsed")
         
         if uploaded_file is not None:
             try:
-                # Read sample / head
                 df_upload = pd.read_csv(uploaded_file, low_memory=False)
                 st.success(f"Successfully loaded CSV with **{len(df_upload):,} rows** and **{len(df_upload.columns)} columns**.")
                 
-                # Check for target column in input
+                # Check for target column in input and drop safely
                 if "Congestion_Level" in df_upload.columns:
-                    st.warning("⚠️ Column 'Congestion_Level' detected in uploaded file. It will be ignored during inference.")
+                    st.warning("⚠️ Column 'Congestion_Level' detected in uploaded file. It will be quarantined and ignored during inference.")
                     df_upload = df_upload.drop(columns=["Congestion_Level"])
                     
-                # Preview uploaded data
-                st.markdown("##### Uploaded Telemetry Preview (First 5 Rows):")
-                st.dataframe(df_upload.head(5), height=180)
+                st.markdown("##### 🔍 Uploaded Telemetry Preview (First 5 Rows):")
+                st.dataframe(df_upload.head(5), height=180, width="stretch")
                 
                 if st.button("🚀 Run Batch Congestion Prediction", type="primary"):
-                    with st.spinner(f"Evaluating {len(df_upload):,} flow records..."):
+                    with st.spinner(f"Evaluating {len(df_upload):,} flow records through 100 Random Forest estimators..."):
                         t_start = time.perf_counter()
-                        
-                        # Run batch prediction via predict_congestion
                         batch_results = predictor.predict(df_upload, return_probabilities=True)
                         t_elapsed = time.perf_counter() - t_start
                         
-                        # Extract predictions and confidences
                         preds = [r["predicted_congestion_level"] for r in batch_results]
                         confs = [r["confidence"] for r in batch_results]
                         
-                        # Add results to dataframe
                         df_result = df_upload.copy()
                         df_result.insert(0, "Predicted_Congestion_Level", preds)
                         df_result.insert(1, "Prediction_Confidence", confs)
                         
-                        st.success(f"Completed batch prediction in **{t_elapsed:.3f} seconds** ({t_elapsed/len(df_upload)*1e6:.1f} \u03bcs/sample)!")
+                        st.success(f"Batch prediction completed in **{t_elapsed:.3f} seconds** ({t_elapsed/len(df_upload)*1e6:.1f} \u03bcs/sample)!")
                         
-                        # Summary metrics
+                        # Summary Metrics Grid
                         c1, c2, c3, c4 = st.columns(4)
                         c1.metric("Total Flows Evaluated", f"{len(df_result):,}")
                         c2.metric("LOW Congestion Flows", f"{(df_result['Predicted_Congestion_Level']=='LOW').sum():,}")
                         c3.metric("MEDIUM Congestion Flows", f"{(df_result['Predicted_Congestion_Level']=='MEDIUM').sum():,}")
                         c4.metric("HIGH Congestion Flows", f"{(df_result['Predicted_Congestion_Level']=='HIGH').sum():,}")
                         
-                        # Preview results
-                        st.markdown("##### Annotated Results Preview:")
-                        st.dataframe(df_result.head(10), height=250)
+                        st.markdown("##### 📋 Annotated Predictions Preview:")
+                        st.dataframe(df_result.head(10), height=250, width="stretch")
                         
-                        # Download button
                         csv_buffer = io.StringIO()
                         df_result.to_csv(csv_buffer, index=False)
                         st.download_button(
@@ -456,8 +791,14 @@ elif page == "🔮 Congestion Prediction":
     # OPTION B: SINGLE-RECORD INFERENCE
     # -------------------------------------------------------------------------
     else:
-        st.subheader("⚡ Single-Flow Telemetry Prediction")
-        st.markdown("Select a real test demonstration preset or input custom flow parameters:")
+        st.markdown("""
+        <div class="glass-card">
+            <div class="glass-card-title">⚡ Single-Flow Telemetry Configuration</div>
+            <p style="color: #94a3b8; font-size: 13.5px; line-height: 1.5; margin: 0;">
+                Select an authentic demonstration profile extracted from the unseen test partition, or enter custom parameters below:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         
         presets = load_demonstration_presets()
         preset_names = ["Custom / Manual Input"] + list(presets.keys())
@@ -468,13 +809,11 @@ elif page == "🔮 Congestion Prediction":
             index=1 if len(preset_names) > 1 else 0
         )
         
-        # Base values from selected preset
         base_vals = presets.get(selected_preset, {}) if selected_preset != "Custom / Manual Input" else {}
         
         if selected_preset != "Custom / Manual Input":
-            st.info(f"Loaded telemetry profile: **{selected_preset}** (extracted from unseen test partition).")
+            st.info(f"Loaded telemetry profile: **{selected_preset}** (Authentic holdout test vector)")
             
-        # Form for entering the 58 features in structured expandable categories
         with st.form("single_prediction_form"):
             input_dict = {}
             
@@ -649,51 +988,56 @@ elif page == "🔮 Congestion Prediction":
             
         if submit_btn:
             try:
-                with st.spinner("Analyzing network flow dynamics..."):
+                with st.spinner("Executing inference across 100 decision trees..."):
                     pred_res = predictor.predict(input_dict, return_probabilities=True)
                     
                 p_class = pred_res["predicted_congestion_level"]
                 p_conf = pred_res["confidence"]
                 p_probs = pred_res["probabilities"]
                 
-                # Card Styling based on class
-                card_class = f"result-card-{p_class.lower()}"
+                # Dynamic Visual Result Card
+                card_class = f"pred-result-{p_class.lower()}"
                 badge_class = "badge-green" if p_class == "LOW" else ("badge-amber" if p_class == "MEDIUM" else "badge-red")
+                tier_color = "#34d399" if p_class == "LOW" else ("#fbbf24" if p_class == "MEDIUM" else "#f87171")
                 
                 st.markdown(f"""
-                <div class="{card_class}">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div class="hero-pred-result {card_class}">
+                    <div class="pred-status-header">
                         <div>
-                            <span class="badge {badge_class}">{p_class} CONGESTION</span>
-                            <span style="color: #94a3b8; font-size: 13px; margin-left: 10px;">Model Confidence: <b>{p_conf*100:.1f}%</b></span>
+                            <span class="badge {badge_class}">PREDICTED CONGESTION STATE</span>
+                            <span style="color: #94a3b8; font-size: 13px; margin-left: 12px; font-weight: 600;">
+                                Confidence Estimate: <b style="color: #ffffff;">{p_conf*100:.1f}%</b>
+                            </span>
                         </div>
-                        <small style="color: #64748b;">Random Forest Model (58 Features)</small>
+                        <span class="badge badge-blue">RANDOM FOREST MODEL</span>
                     </div>
-                    <h2 style="margin: 0 0 8px 0; color: #f8fafc; font-size: 24px;">Predicted Network State: <b>{p_class}</b></h2>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 14px;">
-                        {'The flow displays large payloads and long inter-burst idle pauses indicative of non-congested traffic.' if p_class=='LOW' else ('The flow displays moderate packet activity with transitional buffer pressure.' if p_class=='MEDIUM' else 'The flow displays continuous zero-idle transmission and small packet flood dynamics consistent with high congestion.')}
+                    <div class="pred-tier-title" style="color: {tier_color};">
+                        {p_class} CONGESTION
+                    </div>
+                    <p style="margin: 0; color: #cbd5e1; font-size: 14.5px; line-height: 1.6;">
+                        {'The flow demonstrates large payloads and prolonged inter-burst silence consistent with quiescent link behavior.' if p_class=='LOW' else ('The flow displays moderate packet activity with intermediate queuing strain.' if p_class=='MEDIUM' else 'The flow demonstrates continuous zero-idle transmission and small packet flood dynamics consistent with high link saturation.')}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
                 
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.markdown("##### 📊 Model Class Probabilities (Confidence Breakdown)")
-                st.caption("*Note: Probabilities represent Random Forest tree voting confidence, not direct physical queue overflow guarantees.*")
+                # Confidence Breakdown Chart
+                st.markdown("##### 📊 Model Class Probabilities (Tree Voting Breakdown)")
+                st.caption("*Note: Probabilities represent Random Forest voting consensus across 100 trees, not direct physical queue overflow guarantees.*")
                 
                 prob_df = pd.DataFrame({
                     "Congestion Level": ["LOW", "MEDIUM", "HIGH"],
                     "Probability": [p_probs["LOW"], p_probs["MEDIUM"], p_probs["HIGH"]]
                 })
                 
-                chart = alt.Chart(prob_df).mark_bar(cornerRadius=4).encode(
-                    x=alt.X("Probability:Q", scale=alt.Scale(domain=[0, 1]), title="Prediction Probability"),
+                chart = alt.Chart(prob_df).mark_bar(cornerRadiusEnd=5, height=24).encode(
+                    x=alt.X("Probability:Q", scale=alt.Scale(domain=[0, 1]), title="Voting Probability", axis=alt.Axis(format=".1%")),
                     y=alt.Y("Congestion Level:N", sort=["LOW", "MEDIUM", "HIGH"], title=""),
                     color=alt.Color("Congestion Level:N", scale=alt.Scale(
                         domain=["LOW", "MEDIUM", "HIGH"],
                         range=["#10b981", "#f59e0b", "#ef4444"]
                     ), legend=None),
                     tooltip=["Congestion Level", alt.Tooltip("Probability:Q", format=".2%")]
-                ).properties(height=140)
+                ).properties(height=150)
                 
                 st.altair_chart(chart, width="stretch")
                 
@@ -705,9 +1049,16 @@ elif page == "🔮 Congestion Prediction":
 # -----------------------------------------------------------------------------
 elif page == "📈 Model Performance":
     st.markdown("""
-    <div class="header-box">
-        <h1 class="header-title">Multi-Model Performance Evaluation</h1>
-        <p class="header-subtitle">Empirical validation results on 40,000 unseen holdout test flows</p>
+    <div class="hero-container">
+        <div class="hero-badge-row">
+            <span class="hero-pill">📊 Empirical Evaluation</span>
+            <span class="hero-pill">🔒 40,000 Unseen Holdout Flows</span>
+        </div>
+        <h1 class="hero-title">Multi-Model Performance Evaluation</h1>
+        <p class="hero-subtitle">
+            Comprehensive benchmarking comparing Random Forest, Decision Tree, and Logistic Regression 
+            strictly on holdout flows from <code>dataset/processed_test.csv</code>.
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -716,11 +1067,54 @@ elif page == "📈 Model Performance":
     if comp_df is None:
         st.warning("Model comparison data not found at `./results/model_comparison.csv`.")
     else:
-        # Comparison Table
-        st.subheader("📊 Comparative Test Performance Table")
-        st.markdown("All metrics were computed strictly on the **40,000 unseen test records** from `processed_test.csv`:")
+        # Top Comparison Cards
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.markdown("""
+            <div class="metric-grid-card" style="border-color: #38bdf8;">
+                <div class="metric-icon-box" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">🏆</div>
+                <div class="metric-top-label">Production Model</div>
+                <div class="metric-main-value" style="color: #38bdf8;">Random Forest</div>
+                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    Accuracy: <b>85.39%</b> | Macro F1: <b>85.53%</b>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c2:
+            st.markdown("""
+            <div class="metric-grid-card">
+                <div class="metric-icon-box" style="background: rgba(167, 139, 250, 0.15); color: #a78bfa;">🌲</div>
+                <div class="metric-top-label">Non-Linear Baseline</div>
+                <div class="metric-main-value" style="color: #a78bfa;">Decision Tree</div>
+                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    Accuracy: <b>84.85%</b> | Macro F1: <b>84.91%</b>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        with c3:
+            st.markdown("""
+            <div class="metric-grid-card">
+                <div class="metric-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;">📈</div>
+                <div class="metric-top-label">Linear Baseline</div>
+                <div class="metric-main-value" style="color: #cbd5e1;">Logistic Reg.</div>
+                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    Accuracy: <b>70.38%</b> | Macro F1: <b>70.59%</b>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+        st.markdown("<br>", unsafe_allow_html=True)
         
-        # Display formatted table
+        # Benchmark Table
+        st.markdown("""
+        <div class="glass-card">
+            <div class="glass-card-title">📊 Multi-Model Metric Comparison</div>
+            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">
+                Evaluated against the exact same 40,000 test partition under strict feature quarantine:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
         st.dataframe(
             comp_df.style.format({
                 "Accuracy": "{:.2%}",
@@ -735,56 +1129,83 @@ elif page == "📈 Model Performance":
             width="stretch"
         )
         
-        # Performance comparison chart
+        st.markdown("<br>", unsafe_allow_html=True)
+        
+        # Comparison Chart
         comp_chart_path = "./results/model_performance_comparison.png"
         if os.path.exists(comp_chart_path):
-            st.image(comp_chart_path, caption="Comparative Performance Across All Evaluated Metrics", width="stretch")
+            st.markdown("""
+            <div class="glass-card">
+                <div class="glass-card-title">📈 Metric Radar & Bar Benchmarks</div>
+            </div>
+            """, unsafe_allow_html=True)
+            st.image(comp_chart_path, caption="Comparative Metric Performance Across All 3 Algorithms", width="stretch")
             
-        st.markdown("---")
-        st.subheader("🔍 Confusion Matrix Analysis")
-        st.markdown("Detailed breakdown of predictions across actual test ground-truth tiers:")
+        st.markdown("<br>", unsafe_allow_html=True)
         
-        cm_tabs = st.tabs(["Random Forest (Best Model)", "Decision Tree", "Logistic Regression"])
+        # Confusion Matrices Section
+        st.markdown("""
+        <div class="glass-card">
+            <div class="glass-card-title">🔍 Confusion Matrix Diagnostics</div>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0 0 12px 0;">
+                Analyze class-by-class classifications across actual holdout ground-truth tiers:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        cm_tabs = st.tabs(["Random Forest (Production)", "Decision Tree", "Logistic Regression"])
         
         with cm_tabs[0]:
             cm_rf_path = "./results/confusion_matrices/random_forest_confusion_matrix.png"
             if os.path.exists(cm_rf_path):
                 st.image(cm_rf_path, width=650)
             st.markdown("""
-            **Key Findings for Random Forest:**
-            - **Accuracy:** 85.39% | **Macro F1:** 85.53%
-            - **Non-Adjacent Error Rate:** Only **21 out of 13,176 true HIGH flows (0.16%)** were misclassified as LOW.
-            - **LOW Precision:** Reached **96.05%**, preventing false alarms during normal operations.
-            """)
+            <div style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+                <b>Key Validation Takeaways (Random Forest):</b><br>
+                • <b>Near-Zero Severe Errors:</b> Only <b>21 out of 13,176 true HIGH flows (0.16%)</b> were misclassified as LOW.<br>
+                • <b>Exceptional LOW Precision:</b> Reached <b>96.05%</b>, preventing false alarms during normal quiescent network traffic.<br>
+                • <b>Balanced F1:</b> Macro F1 of <b>85.53%</b> verifies equal discriminative power across all three classes.
+            </div>
+            """, unsafe_allow_html=True)
             
         with cm_tabs[1]:
             cm_dt_path = "./results/confusion_matrices/decision_tree_confusion_matrix.png"
             if os.path.exists(cm_dt_path):
                 st.image(cm_dt_path, width=650)
             st.markdown("""
-            **Key Findings for Decision Tree:**
-            - **Accuracy:** 84.85% | **Macro F1:** 84.91%
-            - Fast inference (0.094s for 40,000 flows). Strong non-linear splits, but slightly higher boundary variance on transitional MEDIUM flows.
-            """)
+            <div style="background: rgba(167, 139, 250, 0.08); border-left: 4px solid #a78bfa; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+                <b>Key Validation Takeaways (Decision Tree):</b><br>
+                • <b>Fast Inference:</b> Evaluated 40,000 flows in 0.094s.<br>
+                • <b>Boundary Variance:</b> Slightly higher dispersion between transitional MEDIUM and HIGH congestion boundaries.
+            </div>
+            """, unsafe_allow_html=True)
             
         with cm_tabs[2]:
             cm_lr_path = "./results/confusion_matrices/logistic_regression_confusion_matrix.png"
             if os.path.exists(cm_lr_path):
                 st.image(cm_lr_path, width=650)
             st.markdown("""
-            **Key Findings for Logistic Regression:**
-            - **Accuracy:** 70.38% | **Macro F1:** 70.59%
-            - Serves as a solid linear baseline, but linear hyperplanes struggle with complex non-linear duty cycle and packet sizing thresholds.
-            """)
+            <div style="background: rgba(148, 163, 184, 0.08); border-left: 4px solid #94a3b8; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+                <b>Key Validation Takeaways (Logistic Regression):</b><br>
+                • <b>Linear Limitation:</b> Linear hyperplanes struggle with non-linear duty cycle and packet distribution boundaries, topping out at 70.38% accuracy.
+            </div>
+            """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # PAGE 4: FEATURE IMPORTANCE
 # -----------------------------------------------------------------------------
 elif page == "🔍 Feature Importance":
     st.markdown("""
-    <div class="header-box">
-        <h1 class="header-title">Random Forest Feature Importance Analysis</h1>
-        <p class="header-subtitle">Gini impurity reduction across 100 decision tree estimators</p>
+    <div class="hero-container">
+        <div class="hero-badge-row">
+            <span class="hero-pill">🌲 Gini Impurity Reduction</span>
+            <span class="hero-pill">🔍 100 Tree Consensus</span>
+        </div>
+        <h1 class="hero-title">Random Forest Feature Importance Analysis</h1>
+        <p class="hero-subtitle">
+            Quantitative analysis of feature influence across 100 decision tree estimators, 
+            verifying the physical drivers of traffic congestion classification.
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -793,55 +1214,60 @@ elif page == "🔍 Feature Importance":
     if fi_df is None:
         st.warning("Feature importance table not found at `./results/feature_importance.csv`.")
     else:
-        st.subheader("🏆 Top 10 Most Important Network Features")
         st.markdown("""
-        > **Scientific Disclaimer:** Feature importance reflects the **statistical reliance** of the Random Forest model during recursive tree splitting. It does **not** assert physical causation.
-        """)
+        <div style="background: rgba(30, 41, 59, 0.5); border-left: 4px solid #38bdf8; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-bottom: 20px;">
+            <b>Scientific Disclaimer:</b> Feature importance describes the <b>statistical reliance</b> of the Random Forest model during recursive tree splitting. It denotes correlation and predictive influence, not direct physical causality.
+        </div>
+        """, unsafe_allow_html=True)
         
-        # Interactive Horizontal Bar Chart of Top 10 Features
+        # Interactive Altair Top 10 Horizontal Bar Chart
+        st.markdown("##### 🏆 Top 10 Most Influential Predictors")
         top10_df = fi_df.head(10).copy()
-        top10_chart = alt.Chart(top10_df).mark_bar(cornerRadiusEnd=4, color="#38bdf8").encode(
-            x=alt.X("Importance:Q", title="Importance Score (Mean Decrease in Impurity)", axis=alt.Axis(format=".3%")),
-            y=alt.Y("Feature:N", sort="-x", title="Network Feature"),
+        top10_chart = alt.Chart(top10_df).mark_bar(cornerRadiusEnd=5, color="#38bdf8", height=22).encode(
+            x=alt.X("Importance:Q", title="Gini Importance Score", axis=alt.Axis(format=".3%")),
+            y=alt.Y("Feature:N", sort="-x", title="Network Predictor"),
             tooltip=["Rank:Q", "Feature:N", alt.Tooltip("Importance:Q", format=".4%")]
         ).properties(height=340)
         st.altair_chart(top10_chart, width="stretch")
 
-        # Reusable existing high-resolution chart
         fi_chart_path = "./results/graphs/random_forest_feature_importance.png"
         if os.path.exists(fi_chart_path):
             with st.expander("🖼️ View High-Resolution Publication Chart", expanded=False):
                 st.image(fi_chart_path, caption="Top 10 Feature Importance Ranking (Gini Metric)", width="stretch")
             
-        # Top 10 Summary
-        top10 = fi_df.head(10).copy()
-        
-        col_t1, col_t2 = st.columns([1, 1])
-        with col_t1:
-            st.markdown("##### 📌 Dominant Feature Categories:")
+        # Analysis Cards Row
+        c1, c2 = st.columns(2)
+        with c1:
             st.markdown("""
-            1. **Packet Morphology (13.17% of Top 10):**
-               `Average Packet Size`, `Packet Length Mean`, `Max Packet Length` distinguish small control floods from bulk transfers.
-            2. **Duty Cycle & Channel Silence (17.98% of Top 10):**
-               `Idle Max`, `Idle Min`, `Active Max`, `Idle Mean` separate prolonged quiet periods from saturated links.
-            3. **Transmission Volume (12.87% of Top 10):**
-               `Fwd Header Length`, `Subflow Fwd Packets`, `Total Fwd Packets` capture cumulative transmission push.
-            """)
+            <div class="glass-card">
+                <div class="glass-card-title">📌 Dominant Feature Categories</div>
+                <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.7; padding-left: 18px;">
+                    <li><b>Packet Morphology (13.17% of Top 10):</b><br><code>Average Packet Size</code>, <code>Packet Length Mean</code>, and <code>Max Packet Length</code> distinguish small control floods from bulk payload transfers.</li>
+                    <li><b>Duty Cycle & Silence (17.98% of Top 10):</b><br><code>Idle Max</code>, <code>Idle Min</code>, <code>Active Max</code>, and <code>Idle Mean</code> separate prolonged quiet periods from saturated links.</li>
+                    <li><b>Transmission Volume (12.87% of Top 10):</b><br><code>Fwd Header Length</code>, <code>Subflow Fwd Packets</code>, and <code>Total Fwd Packets</code> capture cumulative channel pressure.</li>
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
             
-        with col_t2:
-            st.markdown("##### 🛡️ Leakage Verification Status:")
+        with c2:
             st.markdown("""
-            - `Flow Bytes/s`: **Quarantined (Excluded)**
-            - `Flow Packets/s`: **Quarantined (Excluded)**
-            - `Flow Duration`: **Quarantined (Excluded)**
-            - All `Flow/Fwd/Bwd IAT`: **Quarantined (Excluded)**
-            - Original `Label`: **Quarantined (Excluded)**
+            <div class="glass-card">
+                <div class="glass-card-title" style="color: #34d399;">🛡️ Leakage Verification Audit</div>
+                <div style="font-size: 13px; color: #cbd5e1; line-height: 1.7;">
+                    <div>• <code>Flow Bytes/s</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
+                    <div>• <code>Flow Packets/s</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
+                    <div>• <code>Flow Duration</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
+                    <div>• All <code>Flow/Fwd/Bwd IAT</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
+                    <div>• Original <code>Label</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
+                </div>
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 8px 12px; margin-top: 14px; font-size: 12px; color: #6ee7b7;">
+                    ✓ Audit Passed: Zero target-defining rate metrics contaminate the feature space.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
-            *Verification Passed: Zero target-defining rate metrics contaminate the feature space.*
-            """)
-            
-        st.markdown("---")
-        st.subheader("📋 Complete 58-Feature Importance Ranking")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("##### 📋 Complete 58-Feature Importance Ranking")
         st.dataframe(
             fi_df.style.format({"Importance": "{:.6f}"}),
             width="stretch",
@@ -853,32 +1279,70 @@ elif page == "🔍 Feature Importance":
 # -----------------------------------------------------------------------------
 elif page == "ℹ️ About the Project":
     st.markdown("""
-    <div class="header-box">
-        <h1 class="header-title">About the Project</h1>
-        <p class="header-subtitle">College Machine Learning Capstone Project Architecture & Documentation</p>
+    <div class="hero-container">
+        <div class="hero-badge-row">
+            <span class="hero-pill">🎓 Academic Documentation</span>
+            <span class="hero-pill">🔬 Capstone Methodology</span>
+        </div>
+        <h1 class="hero-title">About the Project</h1>
+        <p class="hero-subtitle">
+            System architecture, mathematical definitions, feature quarantine protocols, 
+            and engineering considerations for internet traffic congestion prediction.
+        </p>
     </div>
     """, unsafe_allow_html=True)
     
+    col_a1, col_a2 = st.columns(2)
+    
+    with col_a1:
+        st.markdown("""
+        <div class="glass-card">
+            <div class="glass-card-title">🎓 Project Overview & Objectives</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+                <b>Title:</b> Internet Traffic Congestion Prediction Using Machine Learning<br>
+                <b>Goal:</b> Predict network congestion states (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>) 
+                from passive statistical flow features without relying on invasive hardware probes or direct rate arithmetic.
+            </p>
+        </div>
+        
+        <div class="glass-card">
+            <div class="glass-card-title">📊 Dataset Telemetry (CIC-IDS2017)</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+                The benchmark dataset includes packet captures from the Canadian Institute for Cybersecurity (CIC). 
+                Because CIC-IDS2017 is an intrusion dataset with attack labels rather than congestion labels, 
+                an objective proxy target was required to model congestion scientifically.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    with col_a2:
+        st.markdown("""
+        <div class="glass-card">
+            <div class="glass-card-title">🛡️ Methodological Rigor & Target Fitting</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+                <b>1. Strict Train-First Fitting:</b> TIS normalization boundaries and tercile thresholds 
+                (&tau;<sub>33.3</sub> = 0.2894, &tau;<sub>66.7</sub> = 0.5255) were computed <b>strictly on the 80% training partition (160,000 flows)</b> 
+                and projected out-of-sample onto the 20% test partition (40,000 flows).<br><br>
+                <b>2. Zero-Leakage Quarantine:</b> Quarantining all rate/duration/IAT features prevented trivial inverse formula memorization, 
+                forcing the model to learn true packet morphology and buffer dynamics.
+            </p>
+        </div>
+        
+        <div class="glass-card">
+            <div class="glass-card-title">💻 8 GB RAM Memory-Safe Engineering</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+                Every pipeline stage operates within an 8 GB RAM physical memory boundary:
+                chunked reading, in-place dtype casting, streaming batch evaluation, and constrained tree depth (16).
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
     st.markdown("""
-    ### 🎓 Project Details
-    - **Title:** Internet Traffic Congestion Prediction Using Machine Learning
-    - **Dataset:** CIC-IDS2017 (Canadian Institute for Cybersecurity)
-    - **Target Scope:** 3-Tier Congestion State Estimation (`LOW`, `MEDIUM`, `HIGH`)
-    - **Hardware Constraint:** 8 GB RAM Optimized Architecture
-    
-    ---
-    
-    ### 🔬 Scientific Methodology & Target Derivation
-    CIC-IDS2017 is an intrusion benchmark with attack categories (`BENIGN`, `DDoS`, `PortScan`, `Bot`, etc.) rather than native congestion labels.
-    
-    To formulate a legitimate machine learning task:
-    1. **Traffic Intensity Score (TIS):** Defined mathematically from normalized log-rate telemetry.
-    2. **Strict Train-First Fitting:** Normalization bounds and tercile thresholds ($\tau_{33.3}=0.2894, \tau_{66.7}=0.5255$) were fitted **exclusively on the 80% training split (160,000 flows)** and applied out-of-sample to the 20% test split (40,000 flows).
-    3. **Target Leakage Prevention:** All direct components of TIS (`Flow Bytes/s`, `Flow Packets/s`) and all algebraically coupled duration/IAT features were placed in a strict **Feature Quarantine** and deleted from the ML feature matrix.
-    4. **Model Evaluation:** The production Random Forest model achieved **85.39% Accuracy** and **85.53% Macro F1** using only physical packet morphology, TCP flags, buffering, and duty cycle indicators.
-    
-    ---
-    
-    ### ⚠️ Academic Disclaimer
-    This software is a capstone demonstration system evaluating flow-level traffic intensity proxies. It does not interface directly with physical router queue counters or execute active network packet modification.
-    """)
+    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 12px; padding: 20px 24px; margin-top: 10px;">
+        <div style="color: #f59e0b; font-weight: 700; font-size: 14px; margin-bottom: 6px;">⚠️ Academic Disclaimer</div>
+        <div style="color: #94a3b8; font-size: 12.5px; line-height: 1.6;">
+            This software is an academic capstone demonstration platform evaluating statistical flow-level traffic intensity proxies. 
+            It does not interface directly with physical router queue counters or execute active network packet modification.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
