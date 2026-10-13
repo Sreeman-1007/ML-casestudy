@@ -695,7 +695,7 @@ elif page == "🔮 Congestion Prediction":
                     tooltip=["Congestion Level", alt.Tooltip("Probability:Q", format=".2%")]
                 ).properties(height=140)
                 
-                st.altair_chart(chart, use_container_width=True)
+                st.altair_chart(chart, width="stretch")
                 
             except Exception as e:
                 st.error(f"Prediction Error: {str(e)}")
@@ -732,13 +732,13 @@ elif page == "📈 Model Performance":
                 "Weighted F1": "{:.2%}",
                 "Testing Time": "{:.4f} s"
             }).highlight_max(subset=["Accuracy", "Macro F1"], color="#1e3a8a"),
-            use_container_width=True
+            width="stretch"
         )
         
         # Performance comparison chart
         comp_chart_path = "./results/model_performance_comparison.png"
         if os.path.exists(comp_chart_path):
-            st.image(comp_chart_path, caption="Comparative Performance Across All Evaluated Metrics", use_container_width=True)
+            st.image(comp_chart_path, caption="Comparative Performance Across All Evaluated Metrics", width="stretch")
             
         st.markdown("---")
         st.subheader("🔍 Confusion Matrix Analysis")
@@ -805,13 +805,13 @@ elif page == "🔍 Feature Importance":
             y=alt.Y("Feature:N", sort="-x", title="Network Feature"),
             tooltip=["Rank:Q", "Feature:N", alt.Tooltip("Importance:Q", format=".4%")]
         ).properties(height=340)
-        st.altair_chart(top10_chart, use_container_width=True)
+        st.altair_chart(top10_chart, width="stretch")
 
         # Reusable existing high-resolution chart
         fi_chart_path = "./results/graphs/random_forest_feature_importance.png"
         if os.path.exists(fi_chart_path):
             with st.expander("🖼️ View High-Resolution Publication Chart", expanded=False):
-                st.image(fi_chart_path, caption="Top 10 Feature Importance Ranking (Gini Metric)", use_container_width=True)
+                st.image(fi_chart_path, caption="Top 10 Feature Importance Ranking (Gini Metric)", width="stretch")
             
         # Top 10 Summary
         top10 = fi_df.head(10).copy()
@@ -844,7 +844,7 @@ elif page == "🔍 Feature Importance":
         st.subheader("📋 Complete 58-Feature Importance Ranking")
         st.dataframe(
             fi_df.style.format({"Importance": "{:.6f}"}),
-            use_container_width=True,
+            width="stretch",
             height=350
         )
 
