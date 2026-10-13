@@ -1,0 +1,46 @@
+# =====================================================================
+# Git Ignore Configuration - Internet Traffic Congestion Prediction
+# =====================================================================
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets, Environment & Credentials
+.env
+.env.*
+secrets.json
+*.pem
+*.key
+
+# Large Raw Datasets (Exclude raw PCAP CSVs & large intermediate files)
+dataset/MachineLearningCVE/
+dataset/working_dataset.csv
+dataset/processed_train.csv
+
+# Keep sample test dataset for Streamlit batch prediction testing
+!dataset/processed_test.csv
+
+# Temporary / Scratch & Logs
+scratch/
+*.log

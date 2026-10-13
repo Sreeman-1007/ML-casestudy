@@ -1,0 +1,13 @@
+Feature,LOW_Mean,LOW_Median,LOW_Std,MEDIUM_Mean,MEDIUM_Median,MEDIUM_Std,HIGH_Mean,HIGH_Median,HIGH_Std,Description
+Packet Length Mean,265.69,87.45,349.49,192.37,65.33,361.29,45.19,12.25,127.1,Measures average payload sizing; distinguishes bulky data packets from small control floods.
+Average Packet Size,287.45,111.0,377.69,220.72,86.0,399.42,56.56,16.33,148.6,Overall mean segment size per flow across forward and backward directions.
+Packet Length Std,523.0,150.85,776.17,308.04,33.41,733.01,32.42,3.46,149.95,Reflects packet heterogeneity; video/interactive bursts show high variance vs uniform probing.
+Total Fwd Packets,9.83,5.0,19.56,6.87,2.0,124.84,18.06,2.0,1550.16,Primary volume indicator of client-side transmission load.
+Total Backward Packets,9.34,5.0,25.16,8.08,2.0,171.16,21.96,1.0,2002.74,Server-side response volume; critical for detecting request/response asymmetry.
+Total Length of Fwd Packets,1055.58,123.0,5259.23,379.09,57.0,5365.03,246.85,31.0,6893.46,Aggregate client byte volume indicating payload pressure.
+Init_Win_bytes_forward,9804.54,406.5,14481.34,6109.37,-1.0,15101.37,4847.25,122.0,11586.78,"Client TCP receive window advertisement, showing buffering capacity and flow control limits."
+Init_Win_bytes_backward,2927.87,136.0,9493.7,1903.61,-1.0,8732.67,836.71,-1.0,6273.85,"Server TCP receive window size, revealing server buffer pressure."
+Active Mean,242074.89,985.0,1122384.75,10179.07,0.0,307082.68,1683.89,0.0,369851.2,Mean duration of active transmission bursts before entering idle state.
+Idle Mean,18744198.16,5862258.0,30343908.94,99721.9,0.0,2082095.37,577.26,0.0,90116.48,Mean duration of channel silence between bursts; directly differentiates continuous from sparse traffic.
+ACK Flag Count,0.37,0.0,0.48,0.26,0.0,0.44,0.27,0.0,0.45,"Transport-layer acknowledgment frequency, signaling bidirectional session health."
+Destination Port,3901.79,80.0,13365.37,8788.91,53.0,19176.01,11882.74,443.0,20510.1,"Service-layer identifier distinguishing common services (80, 443, 53) from ephemeral traffic."

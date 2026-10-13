@@ -1,0 +1,191 @@
+{
+  "model_comparison": [
+    {
+      "Model": "Logistic Regression",
+      "Accuracy": 0.7038,
+      "Macro Precision": 0.7131,
+      "Macro Recall": 0.7036,
+      "Macro F1": 0.7059,
+      "Weighted Precision": 0.7135,
+      "Weighted Recall": 0.7038,
+      "Weighted F1": 0.7062,
+      "Testing Time": 0.0137
+    },
+    {
+      "Model": "Decision Tree",
+      "Accuracy": 0.8485,
+      "Macro Precision": 0.8524,
+      "Macro Recall": 0.8488,
+      "Macro F1": 0.8491,
+      "Weighted Precision": 0.8528,
+      "Weighted Recall": 0.8485,
+      "Weighted F1": 0.8491,
+      "Testing Time": 0.0509
+    },
+    {
+      "Model": "Random Forest",
+      "Accuracy": 0.8539,
+      "Macro Precision": 0.8619,
+      "Macro Recall": 0.8542,
+      "Macro F1": 0.8553,
+      "Weighted Precision": 0.8623,
+      "Weighted Recall": 0.8539,
+      "Weighted F1": 0.8553,
+      "Testing Time": 0.1163
+    }
+  ],
+  "classification_reports": {
+    "Logistic Regression": {
+      "LOW": {
+        "precision": 0.8119155978485726,
+        "recall": 0.7268148148148148,
+        "f1-score": 0.7670119210474887,
+        "support": 13500.0
+      },
+      "MEDIUM": {
+        "precision": 0.6078155028827674,
+        "recall": 0.7120984689282498,
+        "f1-score": 0.6558374231008502,
+        "support": 13324.0
+      },
+      "HIGH": {
+        "precision": 0.7194636326696465,
+        "recall": 0.6719034608378871,
+        "f1-score": 0.6948706879635808,
+        "support": 13176.0
+      },
+      "accuracy": 0.703825,
+      "macro avg": {
+        "precision": 0.7130649111336621,
+        "recall": 0.7036055815269838,
+        "f1-score": 0.7059066773706398,
+        "support": 40000.0
+      },
+      "weighted avg": {
+        "precision": 0.7134761788855247,
+        "recall": 0.703825,
+        "f1-score": 0.7062163736036242,
+        "support": 40000.0
+      }
+    },
+    "Decision Tree": {
+      "LOW": {
+        "precision": 0.9358471677650788,
+        "recall": 0.830962962962963,
+        "f1-score": 0.880291913524542,
+        "support": 13500.0
+      },
+      "MEDIUM": {
+        "precision": 0.7785016286644951,
+        "recall": 0.8071900330231162,
+        "f1-score": 0.7925863148973802,
+        "support": 13324.0
+      },
+      "HIGH": {
+        "precision": 0.8429356247358782,
+        "recall": 0.9083181542197936,
+        "f1-score": 0.8744063710089867,
+        "support": 13176.0
+      },
+      "accuracy": 0.848525,
+      "macro avg": {
+        "precision": 0.8524281403884841,
+        "recall": 0.848823716735291,
+        "f1-score": 0.8490948664769696,
+        "support": 40000.0
+      },
+      "weighted avg": {
+        "precision": 0.8528303064168559,
+        "recall": 0.848525,
+        "f1-score": 0.8491384809172104,
+        "support": 40000.0
+      }
+    },
+    "Random Forest": {
+      "LOW": {
+        "precision": 0.9604873803307223,
+        "recall": 0.8174814814814815,
+        "f1-score": 0.8832332933173269,
+        "support": 13500.0
+      },
+      "MEDIUM": {
+        "precision": 0.7667411469970885,
+        "recall": 0.8498949264485139,
+        "f1-score": 0.8061794753141351,
+        "support": 13324.0
+      },
+      "HIGH": {
+        "precision": 0.858452805472673,
+        "recall": 0.895264116575592,
+        "f1-score": 0.8764721179923468,
+        "support": 13176.0
+      },
+      "accuracy": 0.8539,
+      "macro avg": {
+        "precision": 0.8618937776001614,
+        "recall": 0.8542135081685291,
+        "f1-score": 0.8552949622079362,
+        "support": 40000.0
+      },
+      "weighted avg": {
+        "precision": 0.8623403210490475,
+        "recall": 0.8539,
+        "f1-score": 0.8553395353884152,
+        "support": 40000.0
+      }
+    }
+  },
+  "confusion_matrices": {
+    "Logistic Regression": [
+      [
+        9812,
+        2689,
+        999
+      ],
+      [
+        1383,
+        9488,
+        2453
+      ],
+      [
+        890,
+        3433,
+        8853
+      ]
+    ],
+    "Decision Tree": [
+      [
+        11218,
+        1938,
+        344
+      ],
+      [
+        683,
+        10755,
+        1886
+      ],
+      [
+        86,
+        1122,
+        11968
+      ]
+    ],
+    "Random Forest": [
+      [
+        11036,
+        2086,
+        378
+      ],
+      [
+        433,
+        11324,
+        1567
+      ],
+      [
+        21,
+        1359,
+        11796
+      ]
+    ]
+  }
+}
