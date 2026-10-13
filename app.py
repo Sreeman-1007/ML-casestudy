@@ -23,391 +23,395 @@ st.set_page_config(
 )
 
 # -----------------------------------------------------------------------------
-# PREMIUM UNIVERSITY ML DASHBOARD THEME (DARK NAVY / SLATE / CYAN AESTHETIC)
+# DESIGN SYSTEM: SOPHISTICATED DARK TECHNOLOGY / ACADEMIC ML AESTHETIC
 # -----------------------------------------------------------------------------
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-    /* Global Root & Typography */
-    html, body, [class*="css"], .stApp {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-        background-color: #070c18 !important;
-        color: #f1f5f9 !important;
+    /* Global Root Variables & Typography */
+    :root {
+        --bg-main: #080d1a;
+        --bg-surface: #0f172a;
+        --bg-card: #131e36;
+        --border-color: rgba(51, 65, 85, 0.6);
+        --accent-blue: #38bdf8;
+        --accent-primary: #2563eb;
+        --color-low: #10b981;
+        --color-med: #f59e0b;
+        --color-high: #ef4444;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
     }
 
-    /* Subtle background grid pattern */
+    html, body, [class*="css"], .stApp {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background-color: var(--bg-main) !important;
+        color: var(--text-primary) !important;
+    }
+
+    /* Streamlit block container padding normalization */
+    .block-container {
+        padding-top: 1.8rem !important;
+        padding-bottom: 2.5rem !important;
+        max-width: 1240px !important;
+    }
+
+    /* Subtle Technical Dot-Grid Pattern */
     .stApp {
         background-image: 
-            radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.08) 0%, transparent 35%),
-            radial-gradient(circle at 85% 85%, rgba(56, 189, 248, 0.06) 0%, transparent 40%),
-            linear-gradient(rgba(15, 23, 42, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(15, 23, 42, 0.3) 1px, transparent 1px);
-        background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.07) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 45%),
+            radial-gradient(rgba(51, 65, 85, 0.25) 1px, transparent 1px);
+        background-size: 100% 100%, 100% 100%, 28px 28px;
     }
 
-    /* Sidebar Styling */
+    /* Sidebar Refinement */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0b1329 0%, #080d1c 100%) !important;
-        border-right: 1px solid rgba(51, 65, 85, 0.6) !important;
-        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(180deg, #0b1326 0%, #080d18 100%) !important;
+        border-right: 1px solid rgba(51, 65, 85, 0.5) !important;
     }
     section[data-testid="stSidebar"] div.stMarkdown h3 {
-        color: #38bdf8 !important;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        font-weight: 700;
-        margin-top: 10px;
+        color: var(--accent-blue) !important;
+        font-size: 11px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1.2px !important;
+        font-weight: 700 !important;
+        margin-top: 14px !important;
+        margin-bottom: 8px !important;
     }
 
-    /* Radio Button Navigation in Sidebar */
+    /* Sidebar Navigation Pills */
     section[data-testid="stSidebar"] div[data-testid="stRadio"] > div {
-        background: transparent;
-        gap: 6px;
+        gap: 5px;
     }
     section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
-        background-color: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(51, 65, 85, 0.5);
-        border-radius: 8px;
-        padding: 9px 14px;
-        margin-bottom: 4px;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        cursor: pointer;
+        background-color: rgba(19, 30, 54, 0.4) !important;
+        border: 1px solid rgba(51, 65, 85, 0.4) !important;
+        border-radius: 9px !important;
+        padding: 9px 14px !important;
+        margin-bottom: 3px !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: pointer !important;
     }
     section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
-        background-color: rgba(56, 189, 248, 0.12);
-        border-color: #38bdf8;
-        transform: translateX(3px);
+        background-color: rgba(56, 189, 248, 0.1) !important;
+        border-color: rgba(56, 189, 248, 0.5) !important;
+        transform: translateX(2px) !important;
     }
     section[data-testid="stSidebar"] div[data-testid="stRadio"] label[data-checked="true"] {
-        background: linear-gradient(135deg, rgba(37, 99, 235, 0.25) 0%, rgba(14, 165, 233, 0.2) 100%) !important;
-        border-color: #38bdf8 !important;
-        box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.28) 0%, rgba(14, 165, 233, 0.18) 100%) !important;
+        border-color: var(--accent-blue) !important;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.2) !important;
     }
 
-    /* Hero Banner */
-    .hero-container {
-        background: linear-gradient(135deg, #0f1c3f 0%, #0a1329 60%, #060b17 100%);
+    /* Refined Hero Banner */
+    .hero-banner {
+        background: linear-gradient(135deg, #0e1a38 0%, #0a1329 65%, #070c1a 100%);
         border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 16px;
-        padding: 30px 36px;
-        margin-bottom: 24px;
-        box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 28px 34px;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.45);
         position: relative;
         overflow: hidden;
     }
-    .hero-container::before {
+    .hero-banner::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, #2563eb, #38bdf8, #10b981);
+        background: linear-gradient(90deg, #2563eb 0%, #38bdf8 50%, #10b981 100%);
     }
-    .hero-badge-row {
+    .hero-badge-container {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-bottom: 12px;
     }
-    .hero-pill {
+    .hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         background: rgba(15, 23, 42, 0.8);
         border: 1px solid rgba(56, 189, 248, 0.3);
         border-radius: 9999px;
-        padding: 4px 12px;
+        padding: 4px 11px;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.5px;
         color: #7dd3fc;
         text-transform: uppercase;
     }
-    .hero-title {
-        font-size: 32px;
+    .hero-heading {
+        font-size: 30px;
         font-weight: 800;
         color: #ffffff;
         margin: 0 0 8px 0;
-        letter-spacing: -0.7px;
-        line-height: 1.2;
+        letter-spacing: -0.6px;
+        line-height: 1.25;
     }
-    .hero-subtitle {
-        font-size: 15px;
+    .hero-subtext {
+        font-size: 14.5px;
         color: #94a3b8;
         margin: 0;
         font-weight: 400;
         line-height: 1.5;
-        max-width: 900px;
+        max-width: 880px;
     }
 
     /* Metric Cards */
-    .metric-grid-card {
-        background: linear-gradient(135deg, rgba(20, 32, 60, 0.7) 0%, rgba(11, 20, 42, 0.8) 100%);
-        border: 1px solid rgba(51, 65, 85, 0.6);
-        border-radius: 14px;
+    .metric-card-box {
+        background: linear-gradient(145deg, #111d38 0%, #0d162d 100%);
+        border: 1px solid rgba(51, 65, 85, 0.55);
+        border-radius: 12px;
         padding: 20px 22px;
-        box-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.35);
-        transition: all 0.25s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         position: relative;
         overflow: hidden;
     }
-    .metric-grid-card:hover {
-        border-color: #38bdf8;
-        transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.2);
+    .metric-card-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
     }
-    .metric-icon-box {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        margin-bottom: 12px;
+    .metric-card-box::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
     }
-    .metric-top-label {
+    .metric-border-blue::before { background: #38bdf8; }
+    .metric-border-green::before { background: #10b981; }
+    .metric-border-purple::before { background: #a78bfa; }
+    .metric-border-amber::before { background: #f59e0b; }
+
+    .metric-tag-label {
         font-size: 11px;
         font-weight: 700;
         text-transform: uppercase;
         color: #94a3b8;
-        letter-spacing: 0.8px;
-        margin-bottom: 4px;
+        letter-spacing: 0.7px;
+        margin-bottom: 6px;
     }
-    .metric-main-value {
-        font-size: 28px;
+    .metric-number-display {
+        font-size: 27px;
         font-weight: 800;
         color: #ffffff;
         letter-spacing: -0.5px;
         margin-bottom: 4px;
         font-family: 'JetBrains Mono', monospace;
     }
-    .metric-sub-desc {
+    .metric-helper-caption {
         font-size: 12px;
         color: #64748b;
         font-weight: 500;
     }
 
     /* Section Cards */
-    .glass-card {
-        background: linear-gradient(135deg, rgba(17, 28, 54, 0.6) 0%, rgba(10, 18, 38, 0.7) 100%);
-        border: 1px solid rgba(51, 65, 85, 0.6);
-        border-radius: 14px;
-        padding: 24px 26px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    .dashboard-panel {
+        background: linear-gradient(145deg, rgba(16, 26, 48, 0.6) 0%, rgba(11, 19, 36, 0.7) 100%);
+        border: 1px solid rgba(51, 65, 85, 0.55);
+        border-radius: 12px;
+        padding: 22px 24px;
+        margin-bottom: 18px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
-    .glass-card-title {
-        font-size: 18px;
+    .panel-header-title {
+        font-size: 16.5px;
         font-weight: 700;
         color: #f8fafc;
-        margin-top: 0;
-        margin-bottom: 12px;
+        margin: 0 0 12px 0;
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
     /* Taxonomy Cards */
-    .tax-card {
-        border-radius: 12px;
-        padding: 18px 20px;
-        margin-bottom: 14px;
-        transition: transform 0.2s ease;
+    .taxonomy-item {
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+        transition: transform 0.15s ease;
     }
-    .tax-card:hover {
-        transform: translateX(4px);
+    .taxonomy-item:hover {
+        transform: translateX(3px);
     }
-    .tax-card-low {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.25) 100%);
-        border: 1px solid rgba(16, 185, 129, 0.4);
-        border-left: 5px solid #10b981;
+    .tax-low {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 78, 59, 0.2) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.35);
+        border-left: 4px solid #10b981;
     }
-    .tax-card-med {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(120, 53, 15, 0.25) 100%);
-        border: 1px solid rgba(245, 158, 11, 0.4);
-        border-left: 5px solid #f59e0b;
+    .tax-med {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(120, 53, 15, 0.2) 100%);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        border-left: 4px solid #f59e0b;
     }
-    .tax-card-high {
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(127, 29, 29, 0.25) 100%);
-        border: 1px solid rgba(239, 68, 68, 0.4);
-        border-left: 5px solid #ef4444;
+    .tax-high {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(127, 29, 29, 0.2) 100%);
+        border: 1px solid rgba(239, 68, 68, 0.35);
+        border-left: 4px solid #ef4444;
     }
 
-    /* Prediction Result Showcase Cards */
-    .hero-pred-result {
-        border-radius: 16px;
-        padding: 28px 32px;
-        margin-top: 20px;
-        margin-bottom: 24px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    /* Badges */
+    .badge-pill {
+        display: inline-block;
+        padding: 4px 11px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
-    .pred-result-low {
-        background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+    .badge-green { background-color: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #6ee7b7; }
+    .badge-amber { background-color: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #fde68a; }
+    .badge-red { background-color: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; }
+    .badge-cyan { background-color: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; color: #7dd3fc; }
+
+    /* Prediction Result Component */
+    .prediction-display-card {
+        border-radius: 14px;
+        padding: 26px 30px;
+        margin: 18px 0;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    }
+    .pred-card-low {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(9, 23, 44, 0.95) 100%);
         border: 2px solid #10b981;
-        box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
     }
-    .pred-result-medium {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+    .pred-card-medium {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(9, 23, 44, 0.95) 100%);
         border: 2px solid #f59e0b;
-        box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
     }
-    .pred-result-high {
-        background: linear-gradient(135deg, rgba(239, 68, 68, 0.18) 0%, rgba(10, 25, 47, 0.95) 100%);
+    .pred-card-high {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(9, 23, 44, 0.95) 100%);
         border: 2px solid #ef4444;
-        box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
     }
-
-    .pred-status-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-    }
-    .pred-tier-title {
-        font-size: 34px;
+    .pred-hero-label {
+        font-size: 32px;
         font-weight: 800;
         letter-spacing: -0.5px;
         margin: 6px 0 10px 0;
         font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Badges */
-    .badge {
-        display: inline-block;
-        padding: 5px 12px;
-        border-radius: 9999px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.6px;
-        text-transform: uppercase;
+    /* Pipeline Workflow Tracker */
+    .workflow-tracker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(51, 65, 85, 0.5);
+        border-radius: 10px;
+        padding: 10px 18px;
+        margin-bottom: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #94a3b8;
     }
-    .badge-green { background-color: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; }
-    .badge-amber { background-color: rgba(245, 158, 11, 0.2); border: 1px solid #f59e0b; color: #fde68a; }
-    .badge-red { background-color: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; }
-    .badge-blue { background-color: rgba(37, 99, 235, 0.2); border: 1px solid #38bdf8; color: #7dd3fc; }
+    .step-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .step-idx {
+        background: #1e293b;
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10.5px;
+        font-weight: 700;
+    }
 
-    /* Pulsing Status Dot */
-    .pulse-dot {
+    /* Pulsing Status Radar */
+    .radar-indicator {
         width: 8px;
         height: 8px;
         border-radius: 50%;
         background-color: #10b981;
         display: inline-block;
         box-shadow: 0 0 0 rgba(16, 185, 129, 0.7);
-        animation: pulse 1.8s infinite;
+        animation: radar-pulse 2s infinite;
         margin-right: 6px;
     }
-    @keyframes pulse {
+    @keyframes radar-pulse {
         0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-        70% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+        70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
         100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
 
-    /* Pipeline Step Tracker */
-    .pipeline-container {
-        display: flex;
-        justify-content: space-between;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(51, 65, 85, 0.6);
-        border-radius: 12px;
-        padding: 12px 18px;
-        margin-bottom: 22px;
-        gap: 8px;
-    }
-    .pipeline-step {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #94a3b8;
-    }
-    .step-number {
-        background: #1e293b;
-        color: #38bdf8;
-        border: 1px solid rgba(56, 189, 248, 0.4);
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 11px;
-        font-weight: 700;
-    }
-
-    /* Streamlit Tabs */
+    /* Tabs Styling */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        border-bottom: 1px solid rgba(51, 65, 85, 0.8);
+        gap: 6px;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.7);
     }
     .stTabs [data-baseweb="tab"] {
-        background-color: rgba(15, 23, 42, 0.8) !important;
-        border-radius: 8px 8px 0 0 !important;
+        background-color: rgba(15, 23, 42, 0.7) !important;
+        border-radius: 7px 7px 0 0 !important;
         color: #94a3b8 !important;
-        border: 1px solid rgba(51, 65, 85, 0.6) !important;
+        border: 1px solid rgba(51, 65, 85, 0.5) !important;
         border-bottom: none !important;
-        padding: 9px 18px !important;
+        padding: 8px 16px !important;
         font-weight: 600 !important;
-        font-size: 13px !important;
+        font-size: 12.5px !important;
     }
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, #1e3a8a 0%, #1e293b 100%) !important;
+        background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%) !important;
         color: #38bdf8 !important;
         border-color: #38bdf8 !important;
     }
 
-    /* Streamlit Form Submit & Primary Buttons */
+    /* Primary Buttons & Form Submit */
     .stButton > button, div[data-testid="stFormSubmitButton"] > button {
         background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%) !important;
         color: #ffffff !important;
-        border: 1px solid rgba(56, 189, 248, 0.5) !important;
-        border-radius: 10px !important;
+        border: 1px solid rgba(56, 189, 248, 0.4) !important;
+        border-radius: 8px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.4px !important;
-        padding: 10px 24px !important;
-        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+        padding: 9px 22px !important;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
         transition: all 0.2s ease !important;
     }
     .stButton > button:hover, div[data-testid="stFormSubmitButton"] > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 6px 18px rgba(56, 189, 248, 0.4) !important;
         border-color: #38bdf8 !important;
     }
 
     /* Expanders */
     .streamlit-expanderHeader {
-        background-color: rgba(15, 23, 42, 0.7) !important;
-        border: 1px solid rgba(51, 65, 85, 0.6) !important;
-        border-radius: 8px !important;
+        background-color: rgba(15, 23, 42, 0.65) !important;
+        border: 1px solid rgba(51, 65, 85, 0.5) !important;
+        border-radius: 7px !important;
         font-weight: 600 !important;
         color: #cbd5e1 !important;
     }
     
     /* Tables and dataframes */
     .stDataFrame {
-        border: 1px solid rgba(51, 65, 85, 0.6);
-        border-radius: 10px;
+        border: 1px solid rgba(51, 65, 85, 0.5);
+        border-radius: 9px;
         overflow: hidden;
     }
 
-    /* Math Formula Block */
-    .math-block {
-        background: rgba(11, 19, 38, 0.8);
-        border: 1px solid rgba(56, 189, 248, 0.25);
-        border-radius: 10px;
-        padding: 16px 20px;
-        margin: 12px 0;
+    /* LaTeX Math Container */
+    .math-panel {
+        background: rgba(11, 19, 36, 0.7);
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        border-radius: 9px;
+        padding: 14px 18px;
+        margin: 10px 0;
         text-align: center;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# CACHED RESOURCE LOADERS (UNTOUCHED BACKEND LOGIC)
+# CACHED RESOURCE LOADERS (UNTOUCHED BACKEND / DATA LOGIC)
 # -----------------------------------------------------------------------------
 @st.cache_resource
 def load_predictor():
@@ -460,18 +464,18 @@ except Exception as e:
     model_error = str(e)
 
 # -----------------------------------------------------------------------------
-# SIDEBAR NAVIGATION
+# SIDEBAR NAVIGATION (PROFESSIONAL CONTROL CONSOLE)
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="padding: 10px 0 16px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.6); margin-bottom: 18px;">
+    <div style="padding: 6px 0 14px 0; border-bottom: 1px solid rgba(51, 65, 85, 0.5); margin-bottom: 16px;">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <div style="background: linear-gradient(135deg, #2563eb, #38bdf8); width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+            <div style="background: linear-gradient(135deg, #2563eb, #38bdf8); width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 19px;">
                 🌐
             </div>
             <div>
-                <div style="font-weight: 800; font-size: 16px; color: #ffffff; letter-spacing: -0.3px;">NETFLOW AI</div>
-                <div style="font-size: 11px; color: #38bdf8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;">Traffic Congestion Lab</div>
+                <div style="font-weight: 800; font-size: 15px; color: #ffffff; letter-spacing: -0.2px;">NETFLOW AI</div>
+                <div style="font-size: 10.5px; color: #38bdf8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;">Traffic Congestion Lab</div>
             </div>
         </div>
     </div>
@@ -496,22 +500,22 @@ with st.sidebar:
     
     if model_loaded:
         st.markdown("""
-        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.25) 100%); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                <span class="pulse-dot"></span>
-                <span style="color: #6ee7b7; font-weight: 700; font-size: 13px;">MODEL ONLINE</span>
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 78, 59, 0.22) 100%); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 9px; padding: 13px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; margin-bottom: 7px;">
+                <span class="radar-indicator"></span>
+                <span style="color: #6ee7b7; font-weight: 700; font-size: 12.5px;">MODEL ONLINE</span>
             </div>
-            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Model: <b>Random Forest</b> (100 Trees)</div>
-            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Test Accuracy: <b style="color: #38bdf8;">85.39%</b></div>
-            <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 2px;">• Macro F1: <b style="color: #a78bfa;">85.53%</b></div>
-            <div style="font-size: 12px; color: #cbd5e1;">• Active Features: <b>58 Telemetry Inputs</b></div>
+            <div style="font-size: 11.5px; color: #cbd5e1; margin-bottom: 2px;">• Architecture: <b>Random Forest</b></div>
+            <div style="font-size: 11.5px; color: #cbd5e1; margin-bottom: 2px;">• Test Accuracy: <b style="color: #38bdf8;">85.39%</b></div>
+            <div style="font-size: 11.5px; color: #cbd5e1; margin-bottom: 2px;">• Macro F1-Score: <b style="color: #a78bfa;">85.53%</b></div>
+            <div style="font-size: 11.5px; color: #cbd5e1;">• Active Features: <b>58 Telemetry Inputs</b></div>
         </div>
         """, unsafe_allow_html=True)
     else:
         st.error(f"● Model Offline: {model_error}")
         
     st.markdown("""
-    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 8px; padding: 12px; font-size: 11px; color: #94a3b8; line-height: 1.6;">
+    <div style="background: rgba(15, 23, 42, 0.55); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 8px; padding: 11px; font-size: 11px; color: #94a3b8; line-height: 1.6;">
         <div><b>Project:</b> University ML Capstone</div>
         <div><b>Dataset:</b> CIC-IDS2017 Benchmark</div>
         <div><b>Memory Footprint:</b> 8 GB RAM Optimized</div>
@@ -523,58 +527,54 @@ with st.sidebar:
 # PAGE 1: DASHBOARD OVERVIEW
 # -----------------------------------------------------------------------------
 if page == "📊 Dashboard Overview":
-    # Hero Section
+    # Refined Hero Section
     st.markdown("""
-    <div class="hero-container">
-        <div class="hero-badge-row">
-            <span class="hero-pill">🎓 Academic Machine Learning Capstone</span>
-            <span class="hero-pill">🌐 CIC-IDS2017 Benchmark</span>
-            <span class="hero-pill">🛡️ Zero-Leakage Quarantine Active</span>
+    <div class="hero-banner">
+        <div class="hero-badge-container">
+            <span class="hero-badge">🎓 Academic ML Capstone</span>
+            <span class="hero-badge">🌐 CIC-IDS2017 Benchmark</span>
+            <span class="hero-badge">🛡️ Zero-Leakage Quarantine Active</span>
         </div>
-        <h1 class="hero-title">Internet Traffic Congestion Prediction</h1>
-        <p class="hero-subtitle">
-            Machine Learning-Based Network Traffic Flow Analysis & Congestion Estimation using 
+        <h1 class="hero-heading">Internet Traffic Congestion Prediction</h1>
+        <p class="hero-subtext">
+            Machine Learning-Based Network Traffic Analysis & Congestion Estimation using 
             58 physical packet morphology, buffering, and duty-cycle telemetry indicators.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Prominent Metric Cards Row (Preserving Exact Historical Metrics)
+    # Prominent Metric Cards Row (Exact Historical Metrics Preserved)
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown("""
-        <div class="metric-grid-card">
-            <div class="metric-icon-box" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">🤖</div>
-            <div class="metric-top-label">Selected Model</div>
-            <div class="metric-main-value" style="color: #38bdf8;">Random Forest</div>
-            <div class="metric-sub-desc">100 Trees Ensemble (Depth 16)</div>
+        <div class="metric-card-box metric-border-blue">
+            <div class="metric-tag-label">Selected Model</div>
+            <div class="metric-number-display" style="color: #38bdf8;">Random Forest</div>
+            <div class="metric-helper-caption">100 Trees Ensemble (Depth 16)</div>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown("""
-        <div class="metric-grid-card">
-            <div class="metric-icon-box" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🎯</div>
-            <div class="metric-top-label">Test Set Accuracy</div>
-            <div class="metric-main-value" style="color: #34d399;">85.39%</div>
-            <div class="metric-sub-desc">Tested on 40,000 Unseen Flows</div>
+        <div class="metric-card-box metric-border-green">
+            <div class="metric-tag-label">Test Set Accuracy</div>
+            <div class="metric-number-display" style="color: #34d399;">85.39%</div>
+            <div class="metric-helper-caption">Tested on 40,000 Unseen Flows</div>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown("""
-        <div class="metric-grid-card">
-            <div class="metric-icon-box" style="background: rgba(167, 139, 250, 0.15); color: #a78bfa;">⚖️</div>
-            <div class="metric-top-label">Macro F1-Score</div>
-            <div class="metric-main-value" style="color: #a78bfa;">85.53%</div>
-            <div class="metric-sub-desc">Balanced Across All 3 Tiers</div>
+        <div class="metric-card-box metric-border-purple">
+            <div class="metric-tag-label">Macro F1-Score</div>
+            <div class="metric-number-display" style="color: #a78bfa;">85.53%</div>
+            <div class="metric-helper-caption">Balanced Across All 3 Tiers</div>
         </div>
         """, unsafe_allow_html=True)
     with col4:
         st.markdown("""
-        <div class="metric-grid-card">
-            <div class="metric-icon-box" style="background: rgba(251, 191, 36, 0.15); color: #fbbf24;">🛡️</div>
-            <div class="metric-top-label">Predictor Features</div>
-            <div class="metric-main-value" style="color: #fbbf24;">58 Features</div>
-            <div class="metric-sub-desc">Zero Target Leakage Quarantine</div>
+        <div class="metric-card-box metric-border-amber">
+            <div class="metric-tag-label">Predictor Features</div>
+            <div class="metric-number-display" style="color: #fbbf24;">58 Features</div>
+            <div class="metric-helper-caption">Zero Target Leakage Quarantine</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -585,13 +585,13 @@ if page == "📊 Dashboard Overview":
     
     with c_left:
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">🎯 Project Purpose & Mathematical Formulation</div>
-            <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">🎯 Project Purpose & Mathematical Formulation</div>
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6; margin-bottom: 10px;">
                 This system estimates network traffic congestion states from statistical flow telemetry 
                 derived from the benchmark <b>CIC-IDS2017</b> dataset.
             </p>
-            <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6;">
+            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
                 Because CIC-IDS2017 is primarily an intrusion dataset without native hardware queue drop counters, 
                 the ground-truth target is formulated as a mathematically defensible <b>Traffic Intensity Score (TIS)</b> 
                 combining normalized logarithmic bandwidth demand and packet processing load:
@@ -600,19 +600,19 @@ if page == "📊 Dashboard Overview":
         """, unsafe_allow_html=True)
 
         st.markdown("""
-        <div class="math-block">
-            <span style="font-size: 13px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Traffic Intensity Score (TIS) Formulation</span>
+        <div class="math-panel">
+            <span style="font-size: 12px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;">Traffic Intensity Score (TIS) Formulation</span>
         </div>
         """, unsafe_allow_html=True)
         st.latex(r"\text{TIS} = 0.5 \cdot \text{norm}(\log_{10}(1 + \text{Flow Bytes/s})) + 0.5 \cdot \text{norm}(\log_{10}(1 + \text{Flow Packets/s}))")
         
         st.markdown("""
-        <div class="glass-card" style="margin-top: 14px;">
-            <div class="glass-card-title" style="color: #38bdf8;">🛡️ Strict Target Leakage Quarantine</div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+        <div class="dashboard-panel" style="margin-top: 14px;">
+            <div class="panel-header-title" style="color: #38bdf8;">🛡️ Strict Target Leakage Quarantine</div>
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6;">
                 To guarantee academic integrity and prevent the ML model from merely inverting an arithmetic formula:
             </p>
-            <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.7; padding-left: 20px;">
+            <ul style="color: #cbd5e1; font-size: 12.5px; line-height: 1.7; padding-left: 18px; margin-bottom: 0;">
                 <li><b style="color: #f87171;">Quarantined (Excluded):</b> <code>Flow Bytes/s</code>, <code>Flow Packets/s</code>, <code>Flow Duration</code>, and all 14 <code>Flow/Fwd/Bwd IAT</code> features.</li>
                 <li><b style="color: #34d399;">Allowed Predictors (58 features):</b> Packet morphology distributions, TCP control flags, window buffer headroom, and active/idle duty cycles.</li>
             </ul>
@@ -621,55 +621,55 @@ if page == "📊 Dashboard Overview":
         
     with c_right:
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">🚦 Congestion Level Taxonomy</div>
-            <div class="tax-card tax-card-low">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <b style="color: #34d399; font-size: 14.5px;">🟢 LOW CONGESTION</b>
-                    <span class="badge badge-green">TIS &le; 0.2894</span>
+        <div class="dashboard-panel">
+            <div class="panel-header-title">🚦 Congestion Level Taxonomy</div>
+            <div class="taxonomy-item tax-low">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <b style="color: #34d399; font-size: 14px;">🟢 LOW CONGESTION</b>
+                    <span class="badge-pill badge-green">TIS &le; 0.2894</span>
                 </div>
-                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                <div style="color: #cbd5e1; font-size: 12px; line-height: 1.5;">
                     Quiescent baseline traffic; prolonged idle pauses (median ~5.86s), high client window buffer headroom, and large MTU payloads.
                 </div>
             </div>
             
-            <div class="tax-card tax-card-med">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <b style="color: #fbbf24; font-size: 14.5px;">🟡 MEDIUM CONGESTION</b>
-                    <span class="badge badge-amber">0.2894 &lt; TIS &le; 0.5255</span>
+            <div class="taxonomy-item tax-med">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <b style="color: #fbbf24; font-size: 14px;">🟡 MEDIUM CONGESTION</b>
+                    <span class="badge-pill badge-amber">0.2894 &lt; TIS &le; 0.5255</span>
                 </div>
-                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                <div style="color: #cbd5e1; font-size: 12px; line-height: 1.5;">
                     Moderate transmission load; intermediate burst activity, emerging queuing strain, transitional buffer occupancy.
                 </div>
             </div>
             
-            <div class="tax-card tax-card-high">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <b style="color: #f87171; font-size: 14.5px;">🔴 HIGH CONGESTION</b>
-                    <span class="badge badge-red">TIS &gt; 0.5255</span>
+            <div class="taxonomy-item tax-high">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <b style="color: #f87171; font-size: 14px;">🔴 HIGH CONGESTION</b>
+                    <span class="badge-pill badge-red">TIS &gt; 0.5255</span>
                 </div>
-                <div style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5;">
+                <div style="color: #cbd5e1; font-size: 12px; line-height: 1.5;">
                     Severe network saturation; continuous zero-idle transmission, small-packet flood dynamics (median ~16 bytes), reduced TCP window capacity.
                 </div>
             </div>
         </div>
         """, unsafe_allow_html=True)
         
-    # Quick Action Cards
+    # Quick Navigation Guide
     st.markdown("""
-    <div class="glass-card">
-        <div class="glass-card-title">🚀 How to Obtain Predictions</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 10px; padding: 16px;">
-                <b style="color: #38bdf8; font-size: 14px;">⚡ 1. Single-Flow Telemetry Prediction</b>
-                <p style="color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 6px 0 0 0;">
-                    Navigate to <b>🔮 Congestion Prediction</b> &rarr; select Option B. Load one-click authentic test presets or input custom telemetry to receive instantaneous classification and confidence probabilities.
+    <div class="dashboard-panel">
+        <div class="panel-header-title">🚀 How to Obtain Predictions</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: rgba(15, 23, 42, 0.45); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 9px; padding: 15px;">
+                <b style="color: #38bdf8; font-size: 13.5px;">⚡ 1. Single-Flow Telemetry Prediction</b>
+                <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 5px 0 0 0;">
+                    Navigate to <b>🔮 Congestion Prediction</b> &rarr; Option B. Load one-click authentic test presets or input custom telemetry to receive instantaneous classification and confidence estimates.
                 </p>
             </div>
-            <div style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 10px; padding: 16px;">
-                <b style="color: #38bdf8; font-size: 14px;">📁 2. Batch Flow CSV Upload</b>
-                <p style="color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin: 6px 0 0 0;">
-                    Upload any CSV containing the 58 standard predictor columns (e.g. <code>dataset/processed_test.csv</code>). The system performs memory-safe batch evaluation and exports an annotated CSV.
+            <div style="background: rgba(15, 23, 42, 0.45); border: 1px solid rgba(51, 65, 85, 0.4); border-radius: 9px; padding: 15px;">
+                <b style="color: #38bdf8; font-size: 13.5px;">📁 2. Batch Flow CSV Upload</b>
+                <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 5px 0 0 0;">
+                    Upload any CSV containing the 58 standard predictor columns (e.g. <code>dataset/processed_test.csv</code>). The system executes batch evaluation and exports an annotated CSV.
                 </p>
             </div>
         </div>
@@ -680,31 +680,30 @@ if page == "📊 Dashboard Overview":
 # PAGE 2: CONGESTION PREDICTION
 # -----------------------------------------------------------------------------
 elif page == "🔮 Congestion Prediction":
-    # Hero Section
     st.markdown("""
-    <div class="hero-container">
-        <div class="hero-badge-row">
-            <span class="hero-pill">⚡ Real-Time Inference Engine</span>
-            <span class="hero-pill">🤖 Production Random Forest (100 Trees)</span>
+    <div class="hero-banner">
+        <div class="hero-badge-container">
+            <span class="hero-badge">⚡ Real-Time Inference</span>
+            <span class="hero-badge">🤖 Random Forest (100 Trees)</span>
         </div>
-        <h1 class="hero-title">Network Congestion Inference Engine</h1>
-        <p class="hero-subtitle">
+        <h1 class="hero-heading">Network Congestion Inference Engine</h1>
+        <p class="hero-subtext">
             Evaluate individual network telemetry flow vectors or process batch CSV datasets 
             using the trained production Random Forest classifier.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Pipeline Step Tracker Banner
+    # Workflow Pipeline Tracker
     st.markdown("""
-    <div class="pipeline-container">
-        <div class="pipeline-step"><span class="step-number">1</span> Ingest Telemetry</div>
+    <div class="workflow-tracker">
+        <div class="step-tag"><span class="step-idx">1</span> Ingest Telemetry</div>
         <div style="color: #475569;">&rarr;</div>
-        <div class="pipeline-step"><span class="step-number">2</span> Quarantine Schema Check</div>
+        <div class="step-tag"><span class="step-idx">2</span> Quarantine Schema Check</div>
         <div style="color: #475569;">&rarr;</div>
-        <div class="pipeline-step"><span class="step-number">3</span> Random Forest Voting</div>
+        <div class="step-tag"><span class="step-idx">3</span> Random Forest Voting</div>
         <div style="color: #475569;">&rarr;</div>
-        <div class="pipeline-step"><span class="step-number">4</span> Probabilistic Classification</div>
+        <div class="step-tag"><span class="step-idx">4</span> Probabilistic Classification</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -725,12 +724,12 @@ elif page == "🔮 Congestion Prediction":
     # -------------------------------------------------------------------------
     if mode == "Option A: Batch CSV Upload":
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">📁 Batch Telemetry Ingestion</div>
-            <p style="color: #94a3b8; font-size: 13.5px; line-height: 1.5; margin-bottom: 8px;">
-                Upload a CSV export containing network flow records. The file must supply the <b>58 required predictor columns</b>.
+        <div class="dashboard-panel">
+            <div class="panel-header-title">📁 Batch Telemetry Ingestion</div>
+            <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 8px;">
+                Upload a CSV file containing network flow records. The file must supply the <b>58 required predictor columns</b>.
             </p>
-            <div style="background: rgba(30, 41, 59, 0.4); border-left: 3px solid #38bdf8; padding: 8px 14px; border-radius: 4px; font-size: 12px; color: #cbd5e1;">
+            <div style="background: rgba(30, 41, 59, 0.4); border-left: 3px solid #38bdf8; padding: 7px 12px; border-radius: 4px; font-size: 11.5px; color: #cbd5e1;">
                 💡 <b>Quick Demonstration Tip:</b> You can test this feature using the included test file <code>dataset/processed_test.csv</code>!
             </div>
         </div>
@@ -792,9 +791,9 @@ elif page == "🔮 Congestion Prediction":
     # -------------------------------------------------------------------------
     else:
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">⚡ Single-Flow Telemetry Configuration</div>
-            <p style="color: #94a3b8; font-size: 13.5px; line-height: 1.5; margin: 0;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">⚡ Single-Flow Telemetry Configuration</div>
+            <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin: 0;">
                 Select an authentic demonstration profile extracted from the unseen test partition, or enter custom parameters below:
             </p>
         </div>
@@ -996,25 +995,25 @@ elif page == "🔮 Congestion Prediction":
                 p_probs = pred_res["probabilities"]
                 
                 # Dynamic Visual Result Card
-                card_class = f"pred-result-{p_class.lower()}"
+                card_class = f"pred-card-{p_class.lower()}"
                 badge_class = "badge-green" if p_class == "LOW" else ("badge-amber" if p_class == "MEDIUM" else "badge-red")
                 tier_color = "#34d399" if p_class == "LOW" else ("#fbbf24" if p_class == "MEDIUM" else "#f87171")
                 
                 st.markdown(f"""
-                <div class="hero-pred-result {card_class}">
-                    <div class="pred-status-header">
+                <div class="prediction-display-card {card_class}">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <div>
-                            <span class="badge {badge_class}">PREDICTED CONGESTION STATE</span>
+                            <span class="badge-pill {badge_class}">PREDICTED CONGESTION STATE</span>
                             <span style="color: #94a3b8; font-size: 13px; margin-left: 12px; font-weight: 600;">
                                 Confidence Estimate: <b style="color: #ffffff;">{p_conf*100:.1f}%</b>
                             </span>
                         </div>
-                        <span class="badge badge-blue">RANDOM FOREST MODEL</span>
+                        <span class="badge-pill badge-cyan">RANDOM FOREST MODEL</span>
                     </div>
-                    <div class="pred-tier-title" style="color: {tier_color};">
+                    <div class="pred-hero-label" style="color: {tier_color};">
                         {p_class} CONGESTION
                     </div>
-                    <p style="margin: 0; color: #cbd5e1; font-size: 14.5px; line-height: 1.6;">
+                    <p style="margin: 0; color: #cbd5e1; font-size: 14px; line-height: 1.6;">
                         {'The flow demonstrates large payloads and prolonged inter-burst silence consistent with quiescent link behavior.' if p_class=='LOW' else ('The flow displays moderate packet activity with intermediate queuing strain.' if p_class=='MEDIUM' else 'The flow demonstrates continuous zero-idle transmission and small packet flood dynamics consistent with high link saturation.')}
                     </p>
                 </div>
@@ -1029,7 +1028,7 @@ elif page == "🔮 Congestion Prediction":
                     "Probability": [p_probs["LOW"], p_probs["MEDIUM"], p_probs["HIGH"]]
                 })
                 
-                chart = alt.Chart(prob_df).mark_bar(cornerRadiusEnd=5, height=24).encode(
+                chart = alt.Chart(prob_df).mark_bar(cornerRadiusEnd=5, height=22).encode(
                     x=alt.X("Probability:Q", scale=alt.Scale(domain=[0, 1]), title="Voting Probability", axis=alt.Axis(format=".1%")),
                     y=alt.Y("Congestion Level:N", sort=["LOW", "MEDIUM", "HIGH"], title=""),
                     color=alt.Color("Congestion Level:N", scale=alt.Scale(
@@ -1037,7 +1036,7 @@ elif page == "🔮 Congestion Prediction":
                         range=["#10b981", "#f59e0b", "#ef4444"]
                     ), legend=None),
                     tooltip=["Congestion Level", alt.Tooltip("Probability:Q", format=".2%")]
-                ).properties(height=150)
+                ).properties(height=140)
                 
                 st.altair_chart(chart, width="stretch")
                 
@@ -1049,13 +1048,13 @@ elif page == "🔮 Congestion Prediction":
 # -----------------------------------------------------------------------------
 elif page == "📈 Model Performance":
     st.markdown("""
-    <div class="hero-container">
-        <div class="hero-badge-row">
-            <span class="hero-pill">📊 Empirical Evaluation</span>
-            <span class="hero-pill">🔒 40,000 Unseen Holdout Flows</span>
+    <div class="hero-banner">
+        <div class="hero-badge-container">
+            <span class="hero-badge">📊 Empirical Evaluation</span>
+            <span class="hero-badge">🔒 40,000 Unseen Holdout Flows</span>
         </div>
-        <h1 class="hero-title">Multi-Model Performance Evaluation</h1>
-        <p class="hero-subtitle">
+        <h1 class="hero-heading">Multi-Model Performance Evaluation</h1>
+        <p class="hero-subtext">
             Comprehensive benchmarking comparing Random Forest, Decision Tree, and Logistic Regression 
             strictly on holdout flows from <code>dataset/processed_test.csv</code>.
         </p>
@@ -1067,37 +1066,34 @@ elif page == "📈 Model Performance":
     if comp_df is None:
         st.warning("Model comparison data not found at `./results/model_comparison.csv`.")
     else:
-        # Top Comparison Cards
+        # Top Model Benchmark Cards
         c1, c2, c3 = st.columns(3)
         with c1:
             st.markdown("""
-            <div class="metric-grid-card" style="border-color: #38bdf8;">
-                <div class="metric-icon-box" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">🏆</div>
-                <div class="metric-top-label">Production Model</div>
-                <div class="metric-main-value" style="color: #38bdf8;">Random Forest</div>
-                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+            <div class="metric-card-box metric-border-blue">
+                <div class="metric-tag-label">Production Model</div>
+                <div class="metric-number-display" style="color: #38bdf8;">Random Forest</div>
+                <div style="font-size: 12.5px; color: #cbd5e1; margin-top: 4px;">
                     Accuracy: <b>85.39%</b> | Macro F1: <b>85.53%</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
         with c2:
             st.markdown("""
-            <div class="metric-grid-card">
-                <div class="metric-icon-box" style="background: rgba(167, 139, 250, 0.15); color: #a78bfa;">🌲</div>
-                <div class="metric-top-label">Non-Linear Baseline</div>
-                <div class="metric-main-value" style="color: #a78bfa;">Decision Tree</div>
-                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+            <div class="metric-card-box metric-border-purple">
+                <div class="metric-tag-label">Non-Linear Baseline</div>
+                <div class="metric-number-display" style="color: #a78bfa;">Decision Tree</div>
+                <div style="font-size: 12.5px; color: #cbd5e1; margin-top: 4px;">
                     Accuracy: <b>84.85%</b> | Macro F1: <b>84.91%</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
         with c3:
             st.markdown("""
-            <div class="metric-grid-card">
-                <div class="metric-icon-box" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;">📈</div>
-                <div class="metric-top-label">Linear Baseline</div>
-                <div class="metric-main-value" style="color: #cbd5e1;">Logistic Reg.</div>
-                <div style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+            <div class="metric-card-box metric-border-amber">
+                <div class="metric-tag-label">Linear Baseline</div>
+                <div class="metric-number-display" style="color: #cbd5e1;">Logistic Reg.</div>
+                <div style="font-size: 12.5px; color: #cbd5e1; margin-top: 4px;">
                     Accuracy: <b>70.38%</b> | Macro F1: <b>70.59%</b>
                 </div>
             </div>
@@ -1107,9 +1103,9 @@ elif page == "📈 Model Performance":
         
         # Benchmark Table
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">📊 Multi-Model Metric Comparison</div>
-            <p style="color: #94a3b8; font-size: 13px; margin-bottom: 12px;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">📊 Multi-Model Metric Comparison</div>
+            <p style="color: #94a3b8; font-size: 12.5px; margin-bottom: 12px;">
                 Evaluated against the exact same 40,000 test partition under strict feature quarantine:
             </p>
         </div>
@@ -1135,8 +1131,8 @@ elif page == "📈 Model Performance":
         comp_chart_path = "./results/model_performance_comparison.png"
         if os.path.exists(comp_chart_path):
             st.markdown("""
-            <div class="glass-card">
-                <div class="glass-card-title">📈 Metric Radar & Bar Benchmarks</div>
+            <div class="dashboard-panel">
+                <div class="panel-header-title">📈 Metric Radar & Bar Benchmarks</div>
             </div>
             """, unsafe_allow_html=True)
             st.image(comp_chart_path, caption="Comparative Metric Performance Across All 3 Algorithms", width="stretch")
@@ -1145,9 +1141,9 @@ elif page == "📈 Model Performance":
         
         # Confusion Matrices Section
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">🔍 Confusion Matrix Diagnostics</div>
-            <p style="color: #94a3b8; font-size: 13px; margin: 0 0 12px 0;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">🔍 Confusion Matrix Diagnostics</div>
+            <p style="color: #94a3b8; font-size: 12.5px; margin: 0 0 10px 0;">
                 Analyze class-by-class classifications across actual holdout ground-truth tiers:
             </p>
         </div>
@@ -1160,7 +1156,7 @@ elif page == "📈 Model Performance":
             if os.path.exists(cm_rf_path):
                 st.image(cm_rf_path, width=650)
             st.markdown("""
-            <div style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+            <div style="background: rgba(16, 185, 129, 0.08); border-left: 4px solid #10b981; padding: 12px 16px; border-radius: 6px; font-size: 12.5px; color: #cbd5e1; margin-top: 10px;">
                 <b>Key Validation Takeaways (Random Forest):</b><br>
                 • <b>Near-Zero Severe Errors:</b> Only <b>21 out of 13,176 true HIGH flows (0.16%)</b> were misclassified as LOW.<br>
                 • <b>Exceptional LOW Precision:</b> Reached <b>96.05%</b>, preventing false alarms during normal quiescent network traffic.<br>
@@ -1173,7 +1169,7 @@ elif page == "📈 Model Performance":
             if os.path.exists(cm_dt_path):
                 st.image(cm_dt_path, width=650)
             st.markdown("""
-            <div style="background: rgba(167, 139, 250, 0.08); border-left: 4px solid #a78bfa; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+            <div style="background: rgba(167, 139, 250, 0.08); border-left: 4px solid #a78bfa; padding: 12px 16px; border-radius: 6px; font-size: 12.5px; color: #cbd5e1; margin-top: 10px;">
                 <b>Key Validation Takeaways (Decision Tree):</b><br>
                 • <b>Fast Inference:</b> Evaluated 40,000 flows in 0.094s.<br>
                 • <b>Boundary Variance:</b> Slightly higher dispersion between transitional MEDIUM and HIGH congestion boundaries.
@@ -1185,7 +1181,7 @@ elif page == "📈 Model Performance":
             if os.path.exists(cm_lr_path):
                 st.image(cm_lr_path, width=650)
             st.markdown("""
-            <div style="background: rgba(148, 163, 184, 0.08); border-left: 4px solid #94a3b8; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-top: 10px;">
+            <div style="background: rgba(148, 163, 184, 0.08); border-left: 4px solid #94a3b8; padding: 12px 16px; border-radius: 6px; font-size: 12.5px; color: #cbd5e1; margin-top: 10px;">
                 <b>Key Validation Takeaways (Logistic Regression):</b><br>
                 • <b>Linear Limitation:</b> Linear hyperplanes struggle with non-linear duty cycle and packet distribution boundaries, topping out at 70.38% accuracy.
             </div>
@@ -1196,13 +1192,13 @@ elif page == "📈 Model Performance":
 # -----------------------------------------------------------------------------
 elif page == "🔍 Feature Importance":
     st.markdown("""
-    <div class="hero-container">
-        <div class="hero-badge-row">
-            <span class="hero-pill">🌲 Gini Impurity Reduction</span>
-            <span class="hero-pill">🔍 100 Tree Consensus</span>
+    <div class="hero-banner">
+        <div class="hero-badge-container">
+            <span class="hero-badge">🌲 Gini Impurity Reduction</span>
+            <span class="hero-badge">🔍 100 Tree Consensus</span>
         </div>
-        <h1 class="hero-title">Random Forest Feature Importance Analysis</h1>
-        <p class="hero-subtitle">
+        <h1 class="hero-heading">Random Forest Feature Importance Analysis</h1>
+        <p class="hero-subtext">
             Quantitative analysis of feature influence across 100 decision tree estimators, 
             verifying the physical drivers of traffic congestion classification.
         </p>
@@ -1215,7 +1211,7 @@ elif page == "🔍 Feature Importance":
         st.warning("Feature importance table not found at `./results/feature_importance.csv`.")
     else:
         st.markdown("""
-        <div style="background: rgba(30, 41, 59, 0.5); border-left: 4px solid #38bdf8; padding: 12px 16px; border-radius: 6px; font-size: 13px; color: #cbd5e1; margin-bottom: 20px;">
+        <div style="background: rgba(30, 41, 59, 0.45); border-left: 4px solid #38bdf8; padding: 11px 15px; border-radius: 6px; font-size: 12.5px; color: #cbd5e1; margin-bottom: 18px;">
             <b>Scientific Disclaimer:</b> Feature importance describes the <b>statistical reliance</b> of the Random Forest model during recursive tree splitting. It denotes correlation and predictive influence, not direct physical causality.
         </div>
         """, unsafe_allow_html=True)
@@ -1223,11 +1219,11 @@ elif page == "🔍 Feature Importance":
         # Interactive Altair Top 10 Horizontal Bar Chart
         st.markdown("##### 🏆 Top 10 Most Influential Predictors")
         top10_df = fi_df.head(10).copy()
-        top10_chart = alt.Chart(top10_df).mark_bar(cornerRadiusEnd=5, color="#38bdf8", height=22).encode(
+        top10_chart = alt.Chart(top10_df).mark_bar(cornerRadiusEnd=5, color="#38bdf8", height=20).encode(
             x=alt.X("Importance:Q", title="Gini Importance Score", axis=alt.Axis(format=".3%")),
             y=alt.Y("Feature:N", sort="-x", title="Network Predictor"),
             tooltip=["Rank:Q", "Feature:N", alt.Tooltip("Importance:Q", format=".4%")]
-        ).properties(height=340)
+        ).properties(height=320)
         st.altair_chart(top10_chart, width="stretch")
 
         fi_chart_path = "./results/graphs/random_forest_feature_importance.png"
@@ -1239,9 +1235,9 @@ elif page == "🔍 Feature Importance":
         c1, c2 = st.columns(2)
         with c1:
             st.markdown("""
-            <div class="glass-card">
-                <div class="glass-card-title">📌 Dominant Feature Categories</div>
-                <ul style="color: #cbd5e1; font-size: 13px; line-height: 1.7; padding-left: 18px;">
+            <div class="dashboard-panel">
+                <div class="panel-header-title">📌 Dominant Feature Categories</div>
+                <ul style="color: #cbd5e1; font-size: 12.5px; line-height: 1.7; padding-left: 18px; margin-bottom: 0;">
                     <li><b>Packet Morphology (13.17% of Top 10):</b><br><code>Average Packet Size</code>, <code>Packet Length Mean</code>, and <code>Max Packet Length</code> distinguish small control floods from bulk payload transfers.</li>
                     <li><b>Duty Cycle & Silence (17.98% of Top 10):</b><br><code>Idle Max</code>, <code>Idle Min</code>, <code>Active Max</code>, and <code>Idle Mean</code> separate prolonged quiet periods from saturated links.</li>
                     <li><b>Transmission Volume (12.87% of Top 10):</b><br><code>Fwd Header Length</code>, <code>Subflow Fwd Packets</code>, and <code>Total Fwd Packets</code> capture cumulative channel pressure.</li>
@@ -1251,16 +1247,16 @@ elif page == "🔍 Feature Importance":
             
         with c2:
             st.markdown("""
-            <div class="glass-card">
-                <div class="glass-card-title" style="color: #34d399;">🛡️ Leakage Verification Audit</div>
-                <div style="font-size: 13px; color: #cbd5e1; line-height: 1.7;">
+            <div class="dashboard-panel">
+                <div class="panel-header-title" style="color: #34d399;">🛡️ Leakage Verification Audit</div>
+                <div style="font-size: 12.5px; color: #cbd5e1; line-height: 1.7;">
                     <div>• <code>Flow Bytes/s</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
                     <div>• <code>Flow Packets/s</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
                     <div>• <code>Flow Duration</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
                     <div>• All <code>Flow/Fwd/Bwd IAT</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
                     <div>• Original <code>Label</code>: <b style="color: #f87171;">Quarantined (Excluded)</b></div>
                 </div>
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 8px 12px; margin-top: 14px; font-size: 12px; color: #6ee7b7;">
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 6px; padding: 7px 11px; margin-top: 12px; font-size: 11.5px; color: #6ee7b7;">
                     ✓ Audit Passed: Zero target-defining rate metrics contaminate the feature space.
                 </div>
             </div>
@@ -1279,13 +1275,13 @@ elif page == "🔍 Feature Importance":
 # -----------------------------------------------------------------------------
 elif page == "ℹ️ About the Project":
     st.markdown("""
-    <div class="hero-container">
-        <div class="hero-badge-row">
-            <span class="hero-pill">🎓 Academic Documentation</span>
-            <span class="hero-pill">🔬 Capstone Methodology</span>
+    <div class="hero-banner">
+        <div class="hero-badge-container">
+            <span class="hero-badge">🎓 Academic Documentation</span>
+            <span class="hero-badge">🔬 Capstone Methodology</span>
         </div>
-        <h1 class="hero-title">About the Project</h1>
-        <p class="hero-subtitle">
+        <h1 class="hero-heading">About the Project</h1>
+        <p class="hero-subtext">
             System architecture, mathematical definitions, feature quarantine protocols, 
             and engineering considerations for internet traffic congestion prediction.
         </p>
@@ -1296,18 +1292,18 @@ elif page == "ℹ️ About the Project":
     
     with col_a1:
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">🎓 Project Overview & Objectives</div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">🎓 Project Overview & Objectives</div>
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-bottom: 0;">
                 <b>Title:</b> Internet Traffic Congestion Prediction Using Machine Learning<br>
                 <b>Goal:</b> Predict network congestion states (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>) 
                 from passive statistical flow features without relying on invasive hardware probes or direct rate arithmetic.
             </p>
         </div>
         
-        <div class="glass-card">
-            <div class="glass-card-title">📊 Dataset Telemetry (CIC-IDS2017)</div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">📊 Dataset Telemetry (CIC-IDS2017)</div>
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-bottom: 0;">
                 The benchmark dataset includes packet captures from the Canadian Institute for Cybersecurity (CIC). 
                 Because CIC-IDS2017 is an intrusion dataset with attack labels rather than congestion labels, 
                 an objective proxy target was required to model congestion scientifically.
@@ -1317,9 +1313,9 @@ elif page == "ℹ️ About the Project":
         
     with col_a2:
         st.markdown("""
-        <div class="glass-card">
-            <div class="glass-card-title">🛡️ Methodological Rigor & Target Fitting</div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">🛡️ Methodological Rigor & Target Fitting</div>
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-bottom: 0;">
                 <b>1. Strict Train-First Fitting:</b> TIS normalization boundaries and tercile thresholds 
                 (&tau;<sub>33.3</sub> = 0.2894, &tau;<sub>66.7</sub> = 0.5255) were computed <b>strictly on the 80% training partition (160,000 flows)</b> 
                 and projected out-of-sample onto the 20% test partition (40,000 flows).<br><br>
@@ -1328,9 +1324,9 @@ elif page == "ℹ️ About the Project":
             </p>
         </div>
         
-        <div class="glass-card">
-            <div class="glass-card-title">💻 8 GB RAM Memory-Safe Engineering</div>
-            <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.6;">
+        <div class="dashboard-panel">
+            <div class="panel-header-title">💻 8 GB RAM Memory-Safe Engineering</div>
+            <p style="color: #cbd5e1; font-size: 13px; line-height: 1.6; margin-bottom: 0;">
                 Every pipeline stage operates within an 8 GB RAM physical memory boundary:
                 chunked reading, in-place dtype casting, streaming batch evaluation, and constrained tree depth (16).
             </p>
@@ -1338,9 +1334,9 @@ elif page == "ℹ️ About the Project":
         """, unsafe_allow_html=True)
         
     st.markdown("""
-    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(51, 65, 85, 0.6); border-radius: 12px; padding: 20px 24px; margin-top: 10px;">
-        <div style="color: #f59e0b; font-weight: 700; font-size: 14px; margin-bottom: 6px;">⚠️ Academic Disclaimer</div>
-        <div style="color: #94a3b8; font-size: 12.5px; line-height: 1.6;">
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(51, 65, 85, 0.5); border-radius: 10px; padding: 18px 22px; margin-top: 10px;">
+        <div style="color: #f59e0b; font-weight: 700; font-size: 13.5px; margin-bottom: 5px;">⚠️ Academic Disclaimer</div>
+        <div style="color: #94a3b8; font-size: 12px; line-height: 1.6;">
             This software is an academic capstone demonstration platform evaluating statistical flow-level traffic intensity proxies. 
             It does not interface directly with physical router queue counters or execute active network packet modification.
         </div>
